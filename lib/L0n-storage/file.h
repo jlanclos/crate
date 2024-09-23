@@ -96,7 +96,6 @@ class file {
 
   entrySearchSummary entrySearch(uint8_t id, entryType identryType = entryType::UNKNOWN);
 
-  std::vector<entry> entries;
-
  private:
+  std::vector<entry> entries;
 };
