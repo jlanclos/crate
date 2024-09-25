@@ -14,8 +14,8 @@ class unsignedInteger {
   uint32_t getValue();
 
   std::vector<uint8_t> serialize();
-  bool isValidSerial(std::vector<uint8_t> serializedUnsignedInteger);
   void deserialize(std::vector<uint8_t> serializedUnsignedInteger);
+  static bool isValidSerial(std::vector<uint8_t> serializedUnsignedInteger);
 
  private:
   uint32_t value = 0;

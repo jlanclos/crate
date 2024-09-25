@@ -11,12 +11,12 @@ class real {
   real(float value);
   real(std::vector<uint8_t> serializedReal);
 
-  int32_t getValue();
+  float getValue();
 
   std::vector<uint8_t> serialize();
-  bool isValidSerial(std::vector<uint8_t> serializedReal);
   void deserialize(std::vector<uint8_t> serializedReal);
+  static bool isValidSerial(std::vector<uint8_t> serializedReal);
 
  private:
-  float value = 0;
+  float value = 0.0;
 };

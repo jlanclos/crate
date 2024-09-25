@@ -14,8 +14,8 @@ class boolean {
   bool getValue();
 
   std::vector<uint8_t> serialize();
-  bool isValidSerial(std::vector<uint8_t> serializedBoolean);
   void deserialize(std::vector<uint8_t> serializedBoolean);
+  static bool isValidSerial(std::vector<uint8_t> serializedBoolean);
 
  private:
   bool value = false;
