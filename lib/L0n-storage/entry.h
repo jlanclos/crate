@@ -2,12 +2,13 @@
 
 #include <boolean/boolean.h>
 #include <ip/ip.h>
+#include <linteger/linteger.h>
 #include <mac/mac.h>
 #include <real/real.h>
 #include <stdint.h>
 #include <string/string.h>
 #include <types.h>
-#include <unsignedInteger/unsignedInteger.h>
+#include <ulinteger/ulinteger.h>
 
 #include <string>
 #include <vector>

@@ -5,18 +5,18 @@
 
 #include <vector>
 
-class integer {
+class sinteger {
  public:
-  integer();
-  integer(int16_t value);
-  integer(std::vector<uint8_t> serializedInteger);
+  sinteger();
+  sinteger(int8_t value);
+  sinteger(std::vector<uint8_t> serializedInteger);
 
-  int16_t getValue();
+  int8_t getValue();
 
   std::vector<uint8_t> serialize();
   void deserialize(std::vector<uint8_t> serializedInteger);
   static bool isValidSerial(std::vector<uint8_t> serializedInteger);
 
  private:
-  int16_t value = 0;
+  int8_t value = 0;
 };

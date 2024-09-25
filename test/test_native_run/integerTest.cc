@@ -5,7 +5,7 @@
 #define GTEST_COUT std::cout
 
 TEST(integerMethods, integerCreateRead) {
-  sequencer generator32(0, 4294967255, 100000000);
+  sequencer generator16(0, 65535, 500);
 
   // integer can be instantiated without arguments, resulting in a value of 0
   integer mockInteger;
@@ -13,7 +13,7 @@ TEST(integerMethods, integerCreateRead) {
 
   // integer can be instantiated with a value as an argument
   for (uint16_t i = 0; i < 256; i++) {
-    int32_t sequenceValue = generator32.next() - 2147483648;
+    int16_t sequenceValue = generator16.next() - 32768;
     integer mockIntegerSeq(sequenceValue);
     ASSERT_EQ(mockIntegerSeq.getValue(), sequenceValue);
   }
@@ -21,16 +21,14 @@ TEST(integerMethods, integerCreateRead) {
   // integer can be instantiated with a serializedInteger vector
   for (uint16_t i = 0; i < 256; i++) {
     union {
-      int32_t integer;
-      uint8_t bytes[4];
+      int16_t integer;
+      uint8_t bytes[2];
     } number;
-    int32_t sequenceValue = generator32.next() - 2147483648;
+    int16_t sequenceValue = generator16.next() - 32768;
     number.integer = sequenceValue;
     uint8_t byte1 = number.bytes[0];
     uint8_t byte2 = number.bytes[1];
-    uint8_t byte3 = number.bytes[2];
-    uint8_t byte4 = number.bytes[3];
-    std::vector<uint8_t> serializedInteger = {(uint8_t)entryType::INTEGER, 4, byte1, byte2, byte3, byte4};
+    std::vector<uint8_t> serializedInteger = {(uint8_t)entryType::INTEGER, 2, byte1, byte2};
     integer mockIntegerSeq(serializedInteger);
     ASSERT_EQ(integer::isValidSerial(serializedInteger), true);
     ASSERT_EQ(mockIntegerSeq.getValue(), sequenceValue);
@@ -38,23 +36,21 @@ TEST(integerMethods, integerCreateRead) {
 }
 
 TEST(integerMethods, integerSerialization) {
-  sequencer generator32(0, 4294967255, 100000000);
+  sequencer generator16(0, 65535, 500);
 
   for (uint16_t i = 0; i < 256; i++) {
     union {
-      int32_t integer;
-      uint8_t bytes[4];
+      int16_t integer;
+      uint8_t bytes[2];
     } number;
-    int32_t sequenceValue = generator32.next() - 2147483648;
+    int16_t sequenceValue = generator16.next() - 32768;
     number.integer = sequenceValue;
     uint8_t byte1 = number.bytes[0];
     uint8_t byte2 = number.bytes[1];
-    uint8_t byte3 = number.bytes[2];
-    uint8_t byte4 = number.bytes[3];
     integer mockIntegerSeq(sequenceValue);
     ASSERT_EQ(mockIntegerSeq.getValue(), sequenceValue);
 
-    std::vector<uint8_t> serializedInteger = {(uint8_t)entryType::INTEGER, 4, byte1, byte2, byte3, byte4};
+    std::vector<uint8_t> serializedInteger = {(uint8_t)entryType::INTEGER, 2, byte1, byte2};
     ASSERT_EQ(mockIntegerSeq.serialize(), serializedInteger);
     integer mockIntegerSeqPrevious(sequenceValue);
     mockIntegerSeq.deserialize(mockIntegerSeq.serialize());
