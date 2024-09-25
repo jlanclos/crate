@@ -15,8 +15,9 @@ class sinteger {
 
   std::vector<uint8_t> serialize();
   void deserialize(std::vector<uint8_t> serializedInteger);
-  static bool isValidSerial(std::vector<uint8_t> serializedInteger);
 
  private:
   int8_t value = 0;
 };
+
+bool isValidSinteger(std::vector<uint8_t> serializedInteger);

@@ -22,8 +22,6 @@
 #define DEFAULT_MAX_MESSAGE_QUEUE_SIZE 50
 
 #include <file.h>
-#include <ip.h>
-#include <mac.h>
 #include <stdint.h>
 
 #include <string>

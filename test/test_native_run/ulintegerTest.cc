@@ -32,7 +32,7 @@ TEST(ulintegerMethods, ulintegerCreateRead) {
     uint8_t byte4 = number.bytes[3];
     std::vector<uint8_t> serializedUlinteger = {(uint8_t)entryType::ULINTEGER, 4, byte1, byte2, byte3, byte4};
     ulinteger mockUlintegerSeq(serializedUlinteger);
-    ASSERT_EQ(ulinteger::isValidSerial(serializedUlinteger), true);
+    ASSERT_EQ(isValidUlinteger(serializedUlinteger), true);
     ASSERT_EQ(mockUlintegerSeq.getValue(), sequenceValue);
   }
 }

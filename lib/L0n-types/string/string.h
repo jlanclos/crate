@@ -17,8 +17,8 @@ class string {
   std::vector<uint8_t> serialize();
   void deserialize(std::vector<uint8_t> serializedString);
 
-  static bool isValidSerial(std::vector<uint8_t> serializedString);
-
  private:
   std::string value = "default";
 };
+
+bool isValidString(std::vector<uint8_t> serializedString);

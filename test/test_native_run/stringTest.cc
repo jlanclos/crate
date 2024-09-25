@@ -44,12 +44,10 @@ TEST(stringMethods, stringCreateRead) {
       serializedString.push_back((uint8_t)stringCharacter);
     }
     string mockStringSeq(serializedString);
-    ASSERT_EQ(string::isValidSerial(serializedString), true);
+    ASSERT_EQ(isValidString(serializedString), true);
     ASSERT_EQ(mockStringSeq.getValue(), sequenceString);
   }
 }
-
-// GTEST_COUT << printf("       STRING LENGHT: %d\n", emptyString.length());
 
 TEST(stringMethods, stringSerialization) {
   sequencer generator8(0, 255);

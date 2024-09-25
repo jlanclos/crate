@@ -16,20 +16,26 @@ std::vector<uint8_t> boolean::serialize() {
   return bytes;
 }
 
-bool boolean::isValidSerial(std::vector<uint8_t> serializedBoolean) {
-  uint8_t serialSize = serializedBoolean.size();
-  if (serialSize == 3) {
-    entryType dataType = (entryType)serializedBoolean[0];
-    uint8_t dataSize = serializedBoolean[1];
-    if (dataSize == 1 and dataType == entryType::BOOLEAN) {
-      return true;
-    }
-  }
-  return false;
-}
-
 void boolean::deserialize(std::vector<uint8_t> serializedBoolean) {
-  if (isValidSerial(serializedBoolean)) {
+  if (isValidBoolean(serializedBoolean)) {
     this->value = serializedBoolean[2];
   };
+}
+
+// methods
+bool isValidBoolean(std::vector<uint8_t> serializedBoolean) {
+  uint32_t dataSize = serializedBoolean.size();
+  if (dataSize != 3) {
+    return false;
+  }
+  if ((entryType)serializedBoolean[0] != entryType::BOOLEAN) {
+    return false;
+  }
+  if (serializedBoolean[1] != 1) {
+    return false;
+  }
+  if (serializedBoolean[2] != 1 and serializedBoolean[2] != 0) {
+    return false;
+  }
+  return true;
 }

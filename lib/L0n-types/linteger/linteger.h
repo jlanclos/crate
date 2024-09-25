@@ -15,8 +15,9 @@ class linteger {
 
   std::vector<uint8_t> serialize();
   void deserialize(std::vector<uint8_t> serializedInteger);
-  static bool isValidSerial(std::vector<uint8_t> serializedInteger);
-
+  
  private:
   int32_t value = 0;
 };
+
+bool isValidLinteger(std::vector<uint8_t> serializedInteger);

@@ -26,7 +26,7 @@ std::vector<uint8_t> string::serialize() {
 }
 
 void string::deserialize(std::vector<uint8_t> serializedString) {
-  if (isValidSerial(serializedString)) {
+  if (isValidString(serializedString)) {
     union {
       uint32_t integer;
       uint8_t bytes[4];
@@ -43,21 +43,13 @@ void string::deserialize(std::vector<uint8_t> serializedString) {
   };
 }
 
-bool string::isValidSerial(std::vector<uint8_t> serializedString) {
-  uint32_t serialSize = serializedString.size();
-  if (serialSize >= 5) {
-    union {
-      uint32_t integer;
-      uint8_t bytes[4];
-    } dataSize;
-    entryType dataType = (entryType)serializedString[0];
-    dataSize.bytes[0] = serializedString[1];
-    dataSize.bytes[1] = serializedString[2];
-    dataSize.bytes[2] = serializedString[3];
-    dataSize.bytes[3] = serializedString[4];
-    if (dataType == entryType::STRING) {
-      return true;
-    }
+bool isValidString(std::vector<uint8_t> serializedString) {
+  uint32_t dataSize = serializedString.size();
+  if (dataSize < 5) {
+    return false;
   }
-  return false;
+  if ((entryType)serializedString[0] != entryType::STRING) {
+    return false;
+  }
+  return true;
 }

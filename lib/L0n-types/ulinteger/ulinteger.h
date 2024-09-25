@@ -15,8 +15,9 @@ class ulinteger {
 
   std::vector<uint8_t> serialize();
   void deserialize(std::vector<uint8_t> serializedUnsignedLong);
-  static bool isValidSerial(std::vector<uint8_t> serializedUnsignedLong);
-
+  
  private:
   uint32_t value = 0;
 };
+
+bool isValidUlinteger(std::vector<uint8_t> serializedUnsignedLong);

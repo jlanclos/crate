@@ -25,7 +25,7 @@ std::vector<uint8_t> ulinteger::serialize() {
 }
 
 void ulinteger::deserialize(std::vector<uint8_t> serializedUnsignedLong) {
-  if (isValidSerial(serializedUnsignedLong)) {
+  if (isValidUlinteger(serializedUnsignedLong)) {
     union {
       uint32_t ulinteger;
       uint8_t bytes[4];
@@ -38,14 +38,17 @@ void ulinteger::deserialize(std::vector<uint8_t> serializedUnsignedLong) {
   };
 }
 
-bool ulinteger::isValidSerial(std::vector<uint8_t> serializedUnsignedLong) {
-  uint8_t serialSize = serializedUnsignedLong.size();
-  if (serialSize == 6) {
-    entryType dataType = (entryType)serializedUnsignedLong[0];
-    uint8_t dataSize = serializedUnsignedLong[1];
-    if (dataSize == 4 and dataType == entryType::ULINTEGER) {
-      return true;
-    }
+// methods
+bool isValidUlinteger(std::vector<uint8_t> serializedUnsignedLong) {
+  uint32_t dataSize = serializedUnsignedLong.size();
+  if (dataSize != 6) {
+    return false;
   }
-  return false;
+  if ((entryType)serializedUnsignedLong[0] != entryType::ULINTEGER) {
+    return false;
+  }
+  if (serializedUnsignedLong[1] != 4) {
+    return false;
+  }
+  return true;
 }

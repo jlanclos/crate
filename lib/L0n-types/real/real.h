@@ -15,8 +15,9 @@ class real {
 
   std::vector<uint8_t> serialize();
   void deserialize(std::vector<uint8_t> serializedReal);
-  static bool isValidSerial(std::vector<uint8_t> serializedReal);
 
  private:
   float value = 0.0;
 };
+
+bool isValidReal(std::vector<uint8_t> serializedReal);

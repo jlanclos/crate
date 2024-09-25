@@ -52,20 +52,23 @@ std::vector<uint8_t> mac::serialize() {
 }
 
 void mac::deserialize(std::vector<uint8_t> serializedMac) {
-  if (isValidSerial(serializedMac)) {
+  if (isValidMac(serializedMac)) {
     this->value = {serializedMac[2], serializedMac[3], serializedMac[4],
                    serializedMac[5], serializedMac[6], serializedMac[7]};
   }
 }
 
-bool mac::isValidSerial(std::vector<uint8_t> serializedMac) {
-  uint8_t serialize = serializedMac.size();
-  if (serialize == 8) {
-    entryType dataType = (entryType)serializedMac[0];
-    uint8_t dataSize = serializedMac[1];
-    if (dataSize == 6 and dataType == entryType::MAC) {
-      return true;
-    }
+// methods
+bool isValidMac(std::vector<uint8_t> serializedMac) {
+  uint32_t dataSize = serializedMac.size();
+  if (dataSize != 8) {
+    return false;
   }
-  return false;
+  if ((entryType)serializedMac[0] != entryType::MAC) {
+    return false;
+  }
+  if (serializedMac[1] != 6) {
+    return false;
+  }
+  return true;
 }

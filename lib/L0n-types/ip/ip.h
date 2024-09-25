@@ -23,10 +23,9 @@ class ip {
 
   std::vector<uint8_t> serialize();
   void deserialize(std::vector<uint8_t> serializedIp);
-  static bool isValidSerial(std::vector<uint8_t> serializedIp);
-
- private:
   
-
+ private:
   std::array<uint8_t, 4> value;
 };
+
+bool isValidIp(std::vector<uint8_t> serializedIp);

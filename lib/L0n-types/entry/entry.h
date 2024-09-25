@@ -1,14 +1,17 @@
 #pragma once
 
 #include <boolean/boolean.h>
+#include <integer/integer.h>
 #include <ip/ip.h>
 #include <linteger/linteger.h>
 #include <mac/mac.h>
 #include <real/real.h>
+#include <sinteger/sinteger.h>
 #include <stdint.h>
 #include <string/string.h>
-#include <types.h>
+#include <uinteger/uinteger.h>
 #include <ulinteger/ulinteger.h>
+#include <usinteger/usinteger.h>
 
 #include <string>
 #include <vector>
@@ -26,8 +29,13 @@ class entry {
 
   void setData(std::vector<uint8_t> newData);
   std::vector<uint8_t> getData();
+  std::vector<uint8_t> serialize();
+  void deserialize(std::vector<uint8_t> serialEntry);
 
  private:
+  static bool isValidData(std::vector<uint8_t> data);
+
   uint16_t id = 0;
+  entryType type = entryType::UNKNOWN;
   std::vector<uint8_t> data = {(uint8_t)entryType::UNKNOWN};
 };

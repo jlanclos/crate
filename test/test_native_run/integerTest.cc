@@ -30,7 +30,7 @@ TEST(integerMethods, integerCreateRead) {
     uint8_t byte2 = number.bytes[1];
     std::vector<uint8_t> serializedInteger = {(uint8_t)entryType::INTEGER, 2, byte1, byte2};
     integer mockIntegerSeq(serializedInteger);
-    ASSERT_EQ(integer::isValidSerial(serializedInteger), true);
+    ASSERT_EQ(isValidInteger(serializedInteger), true);
     ASSERT_EQ(mockIntegerSeq.getValue(), sequenceValue);
   }
 }

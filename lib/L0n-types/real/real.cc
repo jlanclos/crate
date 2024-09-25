@@ -25,7 +25,7 @@ std::vector<uint8_t> real::serialize() {
 }
 
 void real::deserialize(std::vector<uint8_t> serializedReal) {
-  if (isValidSerial(serializedReal)) {
+  if (isValidReal(serializedReal)) {
     union {
       float decimal;
       uint8_t bytes[4];
@@ -38,14 +38,17 @@ void real::deserialize(std::vector<uint8_t> serializedReal) {
   };
 }
 
-bool real::isValidSerial(std::vector<uint8_t> serializedReal) {
-  uint8_t serialSize = serializedReal.size();
-  if (serialSize == 6) {
-    entryType dataType = (entryType)serializedReal[0];
-    uint8_t dataSize = serializedReal[1];
-    if (dataSize == 4 and dataType == entryType::REAL) {
-      return true;
-    }
+// methods
+bool isValidReal(std::vector<uint8_t> serializedReal) {
+  uint32_t dataSize = serializedReal.size();
+  if (dataSize != 6) {
+    return false;
   }
-  return false;
+  if ((entryType)serializedReal[0] != entryType::REAL) {
+    return false;
+  }
+  if (serializedReal[1] != 4) {
+    return false;
+  }
+  return true;
 }

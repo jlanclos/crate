@@ -25,7 +25,7 @@ std::vector<uint8_t> linteger::serialize() {
 }
 
 void linteger::deserialize(std::vector<uint8_t> serializedLinteger) {
-  if (isValidSerial(serializedLinteger)) {
+  if (isValidLinteger(serializedLinteger)) {
     union {
       int32_t linteger;
       uint8_t bytes[4];
@@ -38,14 +38,17 @@ void linteger::deserialize(std::vector<uint8_t> serializedLinteger) {
   };
 }
 
-bool linteger::isValidSerial(std::vector<uint8_t> serializedLinteger) {
-  uint8_t serialSize = serializedLinteger.size();
-  if (serialSize == 6) {
-    entryType dataType = (entryType)serializedLinteger[0];
-    uint8_t dataSize = serializedLinteger[1];
-    if (dataSize == 4 and dataType == entryType::LINTEGER) {
-      return true;
-    }
+// method
+bool isValidLinteger(std::vector<uint8_t> serializedLinteger) {
+  uint32_t dataSize = serializedLinteger.size();
+  if (dataSize != 6) {
+    return false;
   }
-  return false;
+  if ((entryType)serializedLinteger[0] != entryType::LINTEGER) {
+    return false;
+  }
+  if (serializedLinteger[1] != 4) {
+    return false;
+  }
+  return true;
 }

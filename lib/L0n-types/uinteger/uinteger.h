@@ -15,8 +15,9 @@ class uinteger {
 
   std::vector<uint8_t> serialize();
   void deserialize(std::vector<uint8_t> serializedUinteger);
-  static bool isValidSerial(std::vector<uint8_t> serializedUinteger);
 
  private:
   uint16_t value = 0;
-};
+}; 
+
+bool isValidUinteger(std::vector<uint8_t> serializedUinteger);

@@ -2,6 +2,8 @@
 
 #include <stdint.h>
 
+#include <vector>
+
 enum class entryType : uint8_t {
   UNKNOWN = 0,
   BOOLEAN = 1,
@@ -16,3 +18,5 @@ enum class entryType : uint8_t {
   MAC = 10,
   IP = 11
 };
+
+static bool isValidDataType(std::vector<uint8_t> data);

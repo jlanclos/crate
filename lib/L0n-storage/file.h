@@ -1,6 +1,6 @@
 #pragma once
 
-#include <entry.h>
+#include <entry/entry.h>
 #include <stdint.h>
 
 #include <array>

@@ -33,7 +33,7 @@ TEST(realMethods, realCreateRead) {
     uint8_t byte4 = number.bytes[3];
     std::vector<uint8_t> serializedReal = {(uint8_t)entryType::REAL, 4, byte1, byte2, byte3, byte4};
     real mockRealSeq(serializedReal);
-    ASSERT_EQ(real::isValidSerial(serializedReal), true);
+    ASSERT_EQ(isValidReal(serializedReal), true);
     ASSERT_EQ(mockRealSeq.getValue(), sequenceValue);
   }
 }

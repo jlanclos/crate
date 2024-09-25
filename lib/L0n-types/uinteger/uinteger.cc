@@ -23,7 +23,7 @@ std::vector<uint8_t> uinteger::serialize() {
 }
 
 void uinteger::deserialize(std::vector<uint8_t> serializedUinteger) {
-  if (isValidSerial(serializedUinteger)) {
+  if (isValidUinteger(serializedUinteger)) {
     union {
       uint16_t integer;
       uint8_t bytes[2];
@@ -34,14 +34,17 @@ void uinteger::deserialize(std::vector<uint8_t> serializedUinteger) {
   };
 }
 
-bool uinteger::isValidSerial(std::vector<uint8_t> serializedUinteger) {
-  uint8_t serialSize = serializedUinteger.size();
-  if (serialSize == 4) {
-    entryType dataType = (entryType)serializedUinteger[0];
-    uint8_t dataSize = serializedUinteger[1];
-    if (dataSize == 2 and dataType == entryType::UINTEGER) {
-      return true;
-    }
+// methods
+bool isValidUinteger(std::vector<uint8_t> serializedUinteger) {
+  uint32_t dataSize = serializedUinteger.size();
+  if (dataSize != 4) {
+    return false;
   }
-  return false;
+  if ((entryType)serializedUinteger[0] != entryType::UINTEGER) {
+    return false;
+  }
+  if (serializedUinteger[1] != 2) {
+    return false;
+  }
+  return true;
 }

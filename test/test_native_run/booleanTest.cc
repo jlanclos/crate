@@ -18,11 +18,11 @@ TEST(booleanMethods, booleanCreateRead) {
   // boolean can be instatiated with a serializedBoolean vector
   std::vector<uint8_t> serializedBooleanTrue = {(uint8_t)entryType::BOOLEAN, 1, true};
   boolean mockBooleanSerializedTrue(serializedBooleanTrue);
-  ASSERT_EQ(boolean::isValidSerial(serializedBooleanTrue), true);
+  ASSERT_EQ(isValidBoolean(serializedBooleanTrue), true);
   ASSERT_EQ(mockBooleanSerializedTrue.getValue(), true);
   std::vector<uint8_t> serializedBooleanFalse = {(uint8_t)entryType::BOOLEAN, 1, false};
   boolean mockBooleanSerializedFalse(serializedBooleanFalse);
-  ASSERT_EQ(boolean::isValidSerial(serializedBooleanFalse), true);
+  ASSERT_EQ(isValidBoolean(serializedBooleanFalse), true);
   ASSERT_EQ(mockBooleanSerializedFalse.getValue(), false);
 }
 

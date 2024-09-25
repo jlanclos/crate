@@ -29,7 +29,7 @@ TEST(usintegerMethods, usintegerCreateRead) {
     uint8_t byte1 = number.bytes[0];
     std::vector<uint8_t> serializedUsinteger = {(uint8_t)entryType::USINTEGER, 1, byte1};
     usinteger mockUsintegerSeq(serializedUsinteger);
-    ASSERT_EQ(usinteger::isValidSerial(serializedUsinteger), true);
+    ASSERT_EQ(isValidUsinteger(serializedUsinteger), true);
     ASSERT_EQ(mockUsintegerSeq.getValue(), sequenceValue);
   }
 }

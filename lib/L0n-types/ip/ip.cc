@@ -48,19 +48,22 @@ std::vector<uint8_t> ip::serialize() {
 }
 
 void ip::deserialize(std::vector<uint8_t> serializedIp) {
-  if (isValidSerial(serializedIp)) {
+  if (isValidIp(serializedIp)) {
     this->value = {serializedIp[2], serializedIp[3], serializedIp[4], serializedIp[5]};
   }
 }
 
-bool ip::isValidSerial(std::vector<uint8_t> serializedIp) {
-  uint8_t serialSize = serializedIp.size();
-  if (serialSize == 6) {
-    entryType dataType = (entryType)serializedIp[0];
-    uint8_t dataSize = serializedIp[1];
-    if (dataSize == 4 and dataType == entryType::IP) {
-      return true;
-    }
+// methods
+bool isValidIp(std::vector<uint8_t> serializedIp) {
+  uint32_t dataSize = serializedIp.size();
+  if (dataSize != 6) {
+    return false;
   }
-  return false;
+  if ((entryType)serializedIp[0] != entryType::IP) {
+    return false;
+  }
+  if (serializedIp[1] != 4) {
+    return false;
+  }
+  return true;
 }

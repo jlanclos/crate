@@ -25,10 +25,9 @@ class mac {
 
   std::vector<uint8_t> serialize();
   void deserialize(std::vector<uint8_t> serializedIp);
-  static bool isValidSerial(std::vector<uint8_t> serializedMac);
 
  private:
-  
-
   std::array<uint8_t, 6> value;
 };
+
+bool isValidMac(std::vector<uint8_t> serializedMac);
