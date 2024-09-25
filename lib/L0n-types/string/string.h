@@ -15,9 +15,10 @@ class string {
   std::string getValue();
 
   std::vector<uint8_t> serialize();
-  bool isValidSerial(std::vector<uint8_t> serializedString);
   void deserialize(std::vector<uint8_t> serializedString);
 
+  static bool isValidSerial(std::vector<uint8_t> serializedString);
+
  private:
-  std::string value = 0;
+  std::string value = "default";
 };
