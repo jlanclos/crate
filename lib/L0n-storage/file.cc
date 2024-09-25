@@ -103,20 +103,20 @@ loadSummary file::load(std::vector<uint8_t> fileDataIn) {
   return summary;
 }
 
-updateSummary file::updateEntryDigital(uint8_t id, bool value) {
-  return this->updateEntry(createDigitalEntry(id, value));
+updateSummary file::updateEntryBool(uint8_t id, bool value) {
+  return this->updateEntry(createBoolEntry(id, value));
 }
 
-updateSummary file::updateEntryAnalog8(uint8_t id, uint8_t value) {
-  return this->updateEntry(createAnalog8Entry(id, value));
+updateSummary file::updateEntryUInt8(uint8_t id, uint8_t value) {
+  return this->updateEntry(createUInt8Entry(id, value));
 }
 
-updateSummary file::updateEntryAnalog16(uint8_t id, uint16_t value) {
-  return this->updateEntry(createAnalog16Entry(id, value));
+updateSummary file::updateEntryUInt16(uint8_t id, uint16_t value) {
+  return this->updateEntry(createUInt16Entry(id, value));
 }
 
-updateSummary file::updateEntryAnalog32(uint8_t id, uint32_t value) {
-  return this->updateEntry(createAnalog32Entry(id, value));
+updateSummary file::updateEntryUInt32(uint8_t id, uint32_t value) {
+  return this->updateEntry(createUInt32Entry(id, value));
 }
 
 updateSummary file::updateEntryString(uint8_t id, std::string value) {
@@ -127,46 +127,46 @@ updateSummary file::updateEntryMac(uint8_t id, mac value) { return this->updateE
 
 updateSummary file::updateEntryIp(uint8_t id, ip value) { return this->updateEntry(createIpEntry(id, value)); }
 
-reportSummaryDigital file::reportEntryDigital(uint8_t id) {
-  reportSummaryDigital summary;
+reportSummaryBool file::reportEntryBool(uint8_t id) {
+  reportSummaryBool summary;
   reportSummary pull = this->reportEntry(id);
   if (not pull.exists or not pull.resultEntry.isType(entryType::DIGITAL)) {
     return summary;
   }
-  summary.value = pull.resultEntry.getDigital();
+  summary.value = pull.resultEntry.getBool();
   summary.exists = true;
   return summary;
 }
 
-reportSummaryAnalog8 file::reportEntryAnalog8(uint8_t id) {
-  reportSummaryAnalog8 summary;
+reportSummaryUInt8 file::reportEntryUInt8(uint8_t id) {
+  reportSummaryUInt8 summary;
   reportSummary pull = this->reportEntry(id);
   if (not pull.exists or not pull.resultEntry.isType(entryType::UINT8)) {
     return summary;
   }
-  summary.value = pull.resultEntry.getAnalog8();
+  summary.value = pull.resultEntry.getUInt8();
   summary.exists = true;
   return summary;
 }
 
-reportSummaryAnalog16 file::reportEntryAnalog16(uint8_t id) {
-  reportSummaryAnalog16 summary;
+reportSummaryUInt16 file::reportEntryUInt16(uint8_t id) {
+  reportSummaryUInt16 summary;
   reportSummary pull = this->reportEntry(id);
   if (not pull.exists or not pull.resultEntry.isType(entryType::UINT16)) {
     return summary;
   }
-  summary.value = pull.resultEntry.getAnalog16();
+  summary.value = pull.resultEntry.getUInt16();
   summary.exists = true;
   return summary;
 }
 
-reportSummaryAnalog32 file::reportEntryAnalog32(uint8_t id) {
-  reportSummaryAnalog32 summary;
+reportSummaryUInt32 file::reportEntryUInt32(uint8_t id) {
+  reportSummaryUInt32 summary;
   reportSummary pull = this->reportEntry(id);
   if (not pull.exists or not pull.resultEntry.isType(entryType::UINT32)) {
     return summary;
   }
-  summary.value = pull.resultEntry.getAnalog32();
+  summary.value = pull.resultEntry.getUInt32();
   summary.exists = true;
   return summary;
 }

@@ -13,16 +13,14 @@ void configuration::setDeviceGroup(std::string newDeviceGroup) {
 }
 
 void configuration::setHierarchy(hierarchy newHierarchy) {
-  this->updateEntryAnalog8(parameter::HIERARCHY, (uint8_t)newHierarchy);
+  this->updateEntryUInt8(parameter::HIERARCHY, (uint8_t)newHierarchy);
 }
 
 void configuration::setExecutionMode(executionMode newExecutionMode) {
-  this->updateEntryAnalog8(parameter::EXECUTION_MODE, (uint8_t)newExecutionMode);
+  this->updateEntryUInt8(parameter::EXECUTION_MODE, (uint8_t)newExecutionMode);
 }
 
-void configuration::setChannel(channel newChannel) {
-  this->updateEntryAnalog8(parameter::CHANNEL, (uint8_t)newChannel);
-}
+void configuration::setChannel(channel newChannel) { this->updateEntryUInt8(parameter::CHANNEL, (uint8_t)newChannel); }
 
 void configuration::setHubMac(mac newHubMac) { this->updateEntryMac(parameter::HUB_MAC, newHubMac); }
 
@@ -36,7 +34,7 @@ void configuration::setNetworkPassword(std::string newNetworkPassword) {
 
 void configuration::setMqttIp(ip newMqttIp) { this->updateEntryIp(parameter::MQTT_IP, newMqttIp); }
 
-void configuration::setMqttPort(uint16_t newMqttPort) { this->updateEntryAnalog16(parameter::MQTT_PORT, newMqttPort); }
+void configuration::setMqttPort(uint16_t newMqttPort) { this->updateEntryUInt16(parameter::MQTT_PORT, newMqttPort); }
 
 void configuration::setMqttUsername(std::string newMqttUsername) {
   this->updateEntryString(parameter::MQTT_USERNAME, newMqttUsername);
@@ -47,7 +45,7 @@ void configuration::setMqttPassword(std::string newMqttPassword) {
 }
 
 void configuration::setGuiState(guiState newGuiState) {
-  this->updateEntryAnalog8(parameter::GUI_STATE, (uint8_t)newGuiState);
+  this->updateEntryUInt8(parameter::GUI_STATE, (uint8_t)newGuiState);
 }
 
 void configuration::setGuiIp(ip newGuiIp) { this->updateEntryIp(parameter::GUI_IP, newGuiIp); }
@@ -56,18 +54,18 @@ void configuration::setGuiSubnet(ip newGuiSubnet) { this->updateEntryIp(paramete
 
 void configuration::setGuiGateway(ip newGuiGateway) { this->updateEntryIp(parameter::GUI_GATEWAY, newGuiGateway); }
 
-void configuration::setGuiPort(uint16_t newGuiPort) { this->updateEntryAnalog16(parameter::GUI_PORT, newGuiPort); }
+void configuration::setGuiPort(uint16_t newGuiPort) { this->updateEntryUInt16(parameter::GUI_PORT, newGuiPort); }
 
 void configuration::setGuiPassword(std::string newGuiPassword) {
   this->updateEntryString(parameter::GUI_PASSWORD, newGuiPassword);
 }
 
 void configuration::setMaxSatelliteSendAttempts(uint8_t newMaxSatelliteSendAttampts) {
-  this->updateEntryAnalog8(parameter::MAX_SATELLITE_SEND_ATTEMPTS, newMaxSatelliteSendAttampts);
+  this->updateEntryUInt8(parameter::MAX_SATELLITE_SEND_ATTEMPTS, newMaxSatelliteSendAttampts);
 }
 
 void configuration::setMaxMessageQueueSize(uint8_t newMaxMessageQueueSize) {
-  this->updateEntryAnalog8(parameter::MAX_MESSAGE_QUEUE_SIZE, newMaxMessageQueueSize);
+  this->updateEntryUInt8(parameter::MAX_MESSAGE_QUEUE_SIZE, newMaxMessageQueueSize);
 }
 
 void configuration::setDefaults() {
@@ -123,7 +121,7 @@ hierarchy configuration::getHierarchy() {
     this->setDefaults();
     return (hierarchy)DEFAULT_HEIRARCHY;
   }
-  return (hierarchy)entry.getAnalog8();
+  return (hierarchy)entry.getUInt8();
 }
 
 executionMode configuration::getExecutionMode() {
@@ -134,7 +132,7 @@ executionMode configuration::getExecutionMode() {
     this->setDefaults();
     return (executionMode)DEFAULT_EXECUTION_MODE;
   }
-  return (executionMode)entry.getAnalog8();
+  return (executionMode)entry.getUInt8();
 }
 
 channel configuration::getChannel() {
@@ -145,7 +143,7 @@ channel configuration::getChannel() {
     this->setDefaults();
     return (channel)DEFAULT_CHANNEL;
   }
-  return (channel)entry.getAnalog8();
+  return (channel)entry.getUInt8();
 }
 
 mac configuration::getHubMac() {
@@ -200,7 +198,7 @@ uint16_t configuration::getMqttPort() {
     this->setDefaults();
     return DEFAULT_MQTT_PORT;
   }
-  return entry.getAnalog16();
+  return entry.getUInt16();
 }
 
 std::string configuration::getMqttUsername() {
@@ -233,7 +231,7 @@ guiState configuration::getGuiState() {
     this->setDefaults();
     return (guiState)DEFAULT_GUI_STATE;
   }
-  return (guiState)entry.getAnalog8();
+  return (guiState)entry.getUInt8();
 }
 
 ip configuration::getGuiIp() {
@@ -277,7 +275,7 @@ uint16_t configuration::getGuiPort() {
     this->setDefaults();
     return DEFAULT_GUI_PORT;
   }
-  return entry.getAnalog8();
+  return entry.getUInt8();
 }
 
 std::string configuration::getGuiPassword() {
@@ -299,7 +297,7 @@ uint8_t configuration::getMaxSatelliteSendAttempts() {
     this->setDefaults();
     return DEFAULT_MAX_SATELLITE_SEND_ATTEMPTS;
   }
-  return entry.getAnalog8();
+  return entry.getUInt8();
 }
 
 uint8_t configuration::getMaxMessageQueueSize() {
@@ -310,5 +308,5 @@ uint8_t configuration::getMaxMessageQueueSize() {
     this->setDefaults();
     return DEFAULT_MAX_MESSAGE_QUEUE_SIZE;
   }
-  return entry.getAnalog8();
+  return entry.getUInt8();
 }
