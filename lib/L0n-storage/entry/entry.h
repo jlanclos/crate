@@ -17,7 +17,7 @@
 
 class entry {
  public:
-  entry(uint16_t id, type bytes);
+  entry(uint16_t id, type &object);
 
   uint16_t getId();
   entryType getType();

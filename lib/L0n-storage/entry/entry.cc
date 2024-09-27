@@ -1,9 +1,9 @@
 #include <entry/entry.h>
 
 // entry class
-entry::entry(uint16_t id, type data) {
+entry::entry(uint16_t id, type &object) {
   this->id = id;
-  this->bytes = data.encode();
+  this->bytes = object.encode();
 }
 
 uint16_t entry::getId() { return this->id; }

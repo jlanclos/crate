@@ -21,8 +21,7 @@ enum class entryType : uint8_t {
 
 class type {
  public:
-  virtual std::vector<uint8_t> encode() { return bytes; };
+  virtual std::vector<uint8_t> encode() = 0;
 
  private:
-  std::vector<uint8_t> bytes = {(uint8_t)entryType::UNKNOWN};
 };

@@ -3,32 +3,32 @@
 #include <sequencer.h>
 
 #define GTEST_COUT std::cout
-// TEST(entryMethods, entryCreateReadUnknown) {
-//   boolean booleanData(true);
+TEST(entryMethods, entryCreateReadUnknown) {
+  boolean booleanData(true);
 
-//   std::vector<uint8_t> data = booleanData.getBytes();
-//   uint32_t dataSize = data.size();
-//   GTEST_COUT << printf("       SIZE: %d\n", dataSize);
-//   for (uint32_t i = 0; i < dataSize; i++) {
-//     GTEST_COUT << printf("       BYTE: %d\n", data[i]);
-//   }
+  std::vector<uint8_t> data = booleanData.encode();
+  uint32_t dataSize = data.size();
+  GTEST_COUT << printf("       SIZE: %d\n", dataSize);
+  for (uint32_t i = 0; i < dataSize; i++) {
+    GTEST_COUT << printf("       BYTE: %d\n", data[i]);
+  }
 
-//   entry booleanEntry(20, booleanData);
+  entry booleanEntry(20, booleanData);
 
-//   GTEST_COUT << printf("       ID: %d\n", booleanEntry.getId());
-//   std::vector<uint8_t> bytes = booleanEntry.getBytes();
-//   uint32_t bytesSize = bytes.size();
-//   GTEST_COUT << printf("       SIZE: %d\n", bytesSize);
-//   for (uint32_t i = 0; i < bytesSize; i++) {
-//     GTEST_COUT << printf("       BYTE: %d\n", bytes[i]);
-//   }
+  GTEST_COUT << printf("       ID: %d\n", booleanEntry.getId());
+  std::vector<uint8_t> bytes = booleanEntry.getBytes();
+  uint32_t bytesSize = bytes.size();
+  GTEST_COUT << printf("       SIZE: %d\n", bytesSize);
+  for (uint32_t i = 0; i < bytesSize; i++) {
+    GTEST_COUT << printf("       BYTE: %d\n", bytes[i]);
+  }
 
-//   ASSERT_EQ(booleanEntry.getId(), 20);
-//   boolean readBoolean(booleanEntry.getBytes());
-//   bool booleanValue = readBoolean.getValue();
-//   ASSERT_EQ(booleanValue, true);
-//   ASSERT_EQ(booleanEntry.getType(), entryType::BOOLEAN);
-// }
+  ASSERT_EQ(booleanEntry.getId(), 20);
+  boolean readBoolean(booleanEntry.getBytes());
+  bool booleanValue = readBoolean.getValue();
+  ASSERT_EQ(booleanValue, true);
+  ASSERT_EQ(booleanEntry.getType(), entryType::BOOLEAN);
+}
 // TEST(entryMethods, entryCreateSetGetPushPull) {
 //   sequencer generator8(0, 255);
 //   sequencer generator16(0, 65535, 500);
