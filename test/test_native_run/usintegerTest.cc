@@ -23,7 +23,7 @@ TEST(usintegerMethods, usintegerCreateRead) {
     uint8_t sequenceValue = generator8.next();
     number.integer = sequenceValue;
     uint8_t byte1 = number.bytes[0];
-    std::vector<uint8_t> serializedUsinteger = {(uint8_t)entryType::USINTEGER, byte1};
+    encoding_t serializedUsinteger = {(uint8_t)entryType::USINTEGER, byte1};
     usinteger mockUsintegerSeq(serializedUsinteger);
     ASSERT_EQ(mockUsintegerSeq.getValue(), sequenceValue);
   }
@@ -43,7 +43,7 @@ TEST(usintegerMethods, usintegerSerialization) {
     usinteger mockUsintegerSeq(sequenceValue);
     ASSERT_EQ(mockUsintegerSeq.getValue(), sequenceValue);
 
-    std::vector<uint8_t> serializedUsinteger = {(uint8_t)entryType::USINTEGER, byte1};
+    encoding_t serializedUsinteger = {(uint8_t)entryType::USINTEGER, byte1};
     ASSERT_EQ(mockUsintegerSeq.encode(), serializedUsinteger);
     usinteger mockUsintegerSeqPrevious(sequenceValue);
     usinteger mockUsintegerSeqNew(mockUsintegerSeq.encode());

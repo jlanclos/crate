@@ -26,7 +26,7 @@ TEST(lintegerMethods, lintegerCreateRead) {
     uint8_t byte2 = number.bytes[1];
     uint8_t byte3 = number.bytes[2];
     uint8_t byte4 = number.bytes[3];
-    std::vector<uint8_t> serializedLinteger = {(uint8_t)entryType::LINTEGER, byte1, byte2, byte3, byte4};
+    encoding_t serializedLinteger = {(uint8_t)entryType::LINTEGER, byte1, byte2, byte3, byte4};
     linteger mockLintegerSeq(serializedLinteger);
     ASSERT_EQ(mockLintegerSeq.getValue(), sequenceValue);
   }
@@ -49,7 +49,7 @@ TEST(lintegerMethods, lintegerSerialization) {
     linteger mockLintegerSeq(sequenceValue);
     ASSERT_EQ(mockLintegerSeq.getValue(), sequenceValue);
 
-    std::vector<uint8_t> serializedLinteger = {(uint8_t)entryType::LINTEGER, byte1, byte2, byte3, byte4};
+    encoding_t serializedLinteger = {(uint8_t)entryType::LINTEGER, byte1, byte2, byte3, byte4};
     ASSERT_EQ(mockLintegerSeq.encode(), serializedLinteger);
     linteger mockLintegerSeqPrevious(sequenceValue);
     linteger mockLintegerSeqNew(mockLintegerSeq.encode());

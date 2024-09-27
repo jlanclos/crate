@@ -11,7 +11,7 @@ TEST(stringMethods, stringCreateRead) {
   // string can be instantiated with a string as an argument
   for (uint16_t i = 0; i < 256; i++) {
     uint8_t sequenceStringLength = generator8.next();
-    std::string sequenceString;
+    string_t sequenceString;
     for (uint32_t i = 0; i < sequenceStringLength; i++) {
       char stringCharacter = generator8.next();
       sequenceString += stringCharacter;
@@ -27,8 +27,8 @@ TEST(stringMethods, stringCreateRead) {
       uint8_t bytes[4];
     } dataSize;
     dataSize.integer = generator8.next();
-    std::string sequenceString;
-    std::vector<uint8_t> serializedString;
+    string_t sequenceString;
+    encoding_t serializedString;
     serializedString.push_back((uint8_t)entryType::STRING);
     serializedString.push_back(dataSize.bytes[0]);
     serializedString.push_back(dataSize.bytes[1]);
@@ -53,8 +53,8 @@ TEST(stringMethods, stringSerialization) {
       uint8_t bytes[4];
     } dataSize;
     dataSize.integer = generator8.next();
-    std::string sequenceString;
-    std::vector<uint8_t> serializedString;
+    string_t sequenceString;
+    encoding_t serializedString;
     serializedString.push_back((uint8_t)entryType::STRING);
     serializedString.push_back(dataSize.bytes[0]);
     serializedString.push_back(dataSize.bytes[1]);

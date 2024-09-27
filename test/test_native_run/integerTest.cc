@@ -24,7 +24,7 @@ TEST(integerMethods, integerCreateRead) {
     number.integer = sequenceValue;
     uint8_t byte1 = number.bytes[0];
     uint8_t byte2 = number.bytes[1];
-    std::vector<uint8_t> serializedInteger = {(uint8_t)entryType::INTEGER, byte1, byte2};
+    encoding_t serializedInteger = {(uint8_t)entryType::INTEGER, byte1, byte2};
     integer mockIntegerSeq(serializedInteger);
     ASSERT_EQ(mockIntegerSeq.getValue(), sequenceValue);
   }
@@ -45,7 +45,7 @@ TEST(integerMethods, integerSerialization) {
     integer mockIntegerSeq(sequenceValue);
     ASSERT_EQ(mockIntegerSeq.getValue(), sequenceValue);
 
-    std::vector<uint8_t> serializedInteger = {(uint8_t)entryType::INTEGER, byte1, byte2};
+    encoding_t serializedInteger = {(uint8_t)entryType::INTEGER, byte1, byte2};
     ASSERT_EQ(mockIntegerSeq.encode(), serializedInteger);
     integer mockIntegerSeqPrevious(sequenceValue);
     integer mockIntegerSeqNew(mockIntegerSeq.encode());

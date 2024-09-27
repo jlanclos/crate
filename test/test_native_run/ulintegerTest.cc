@@ -26,7 +26,7 @@ TEST(ulintegerMethods, ulintegerCreateRead) {
     uint8_t byte2 = number.bytes[1];
     uint8_t byte3 = number.bytes[2];
     uint8_t byte4 = number.bytes[3];
-    std::vector<uint8_t> serializedUlinteger = {(uint8_t)entryType::ULINTEGER, byte1, byte2, byte3, byte4};
+    encoding_t serializedUlinteger = {(uint8_t)entryType::ULINTEGER, byte1, byte2, byte3, byte4};
     ulinteger mockUlintegerSeq(serializedUlinteger);
     ASSERT_EQ(mockUlintegerSeq.getValue(), sequenceValue);
   }
@@ -49,7 +49,7 @@ TEST(ulintegerMethods, ulintegerSerialization) {
     ulinteger mockUlintegerSeq(sequenceValue);
     ASSERT_EQ(mockUlintegerSeq.getValue(), sequenceValue);
 
-    std::vector<uint8_t> serializedUlinteger = {(uint8_t)entryType::ULINTEGER, byte1, byte2, byte3, byte4};
+    encoding_t serializedUlinteger = {(uint8_t)entryType::ULINTEGER, byte1, byte2, byte3, byte4};
     ASSERT_EQ(mockUlintegerSeq.encode(), serializedUlinteger);
     ulinteger mockUlintegerSeqPrevious(sequenceValue);
     ulinteger mockUlintegerSeqNew(mockUlintegerSeq.encode());
