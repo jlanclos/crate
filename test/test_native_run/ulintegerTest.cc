@@ -7,10 +7,6 @@
 TEST(ulintegerMethods, ulintegerCreateRead) {
   sequencer generator32(0, 4294967255, 100000000);
 
-  // unsigned long can be instantiated without arguments, resulting in a value of 0
-  ulinteger mockUlinteger;
-  ASSERT_EQ(mockUlinteger.getValue(), 0);
-
   // unsigned long can be instantiated with a value as an argument
   for (uint16_t i = 0; i < 256; i++) {
     uint32_t sequenceValue = generator32.next();
@@ -55,9 +51,9 @@ TEST(ulintegerMethods, ulintegerSerialization) {
     ASSERT_EQ(mockUlintegerSeq.getValue(), sequenceValue);
 
     std::vector<uint8_t> serializedUlinteger = {(uint8_t)entryType::ULINTEGER, 4, byte1, byte2, byte3, byte4};
-    ASSERT_EQ(mockUlintegerSeq.serialize(), serializedUlinteger);
+    ASSERT_EQ(mockUlintegerSeq.getBytes(), serializedUlinteger);
     ulinteger mockUlintegerSeqPrevious(sequenceValue);
-    mockUlintegerSeq.deserialize(mockUlintegerSeq.serialize());
-    ASSERT_EQ(mockUlintegerSeq.getValue(), mockUlintegerSeqPrevious.getValue());
+    ulinteger mockUlintegerSeqNew(mockUlintegerSeq.getBytes());
+    ASSERT_EQ(mockUlintegerSeqNew.getValue(), mockUlintegerSeqPrevious.getValue());
   }
 }

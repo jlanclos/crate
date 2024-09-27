@@ -7,10 +7,6 @@
 TEST(sintegerMethods, sintegerCreateRead) {
   sequencer generator8(0, 255);
 
-  // sinteger can be instantiated without arguments, resulting in a value of 0
-  sinteger mockSinteger;
-  ASSERT_EQ(mockSinteger.getValue(), 0);
-
   // sinteger can be instantiated with a value as an argument
   for (uint16_t i = 0; i < 256; i++) {
     int8_t sequenceValue = generator8.next() - 127;
@@ -49,9 +45,9 @@ TEST(sintegerMethods, sintegerSerialization) {
     ASSERT_EQ(mockSintegerSeq.getValue(), sequenceValue);
 
     std::vector<uint8_t> serializedSinteger = {(uint8_t)entryType::SINTEGER, 1, byte1};
-    ASSERT_EQ(mockSintegerSeq.serialize(), serializedSinteger);
+    ASSERT_EQ(mockSintegerSeq.getBytes(), serializedSinteger);
     sinteger mockSintegerSeqPrevious(sequenceValue);
-    mockSintegerSeq.deserialize(mockSintegerSeq.serialize());
-    ASSERT_EQ(mockSintegerSeq.getValue(), mockSintegerSeqPrevious.getValue());
+    sinteger mockSintegerSeqNew(mockSintegerSeq.getBytes());
+    ASSERT_EQ(mockSintegerSeqNew.getValue(), mockSintegerSeqPrevious.getValue());
   }
 }

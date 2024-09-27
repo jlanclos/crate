@@ -7,16 +7,6 @@
 TEST(ipMethods, ipCreateRead) {
   sequencer generator8(0, 255);
 
-  // ip can be instantiated without arguments, resulting in a fully zero'd out ip
-  std::array<uint8_t, 4> compareIp = {0, 0, 0, 0};
-  ip mockIp;
-  ASSERT_EQ(mockIp.getArray(), compareIp);
-  ASSERT_EQ(mockIp.getString(), "0.0.0.0");
-  ASSERT_EQ(mockIp.getOctet1(), 0);
-  ASSERT_EQ(mockIp.getOctet2(), 0);
-  ASSERT_EQ(mockIp.getOctet3(), 0);
-  ASSERT_EQ(mockIp.getOctet4(), 0);
-
   // ip can be instantiated with 4 uint8_t octets as arguments
   for (uint16_t i = 0; i < 256; i++) {
     uint8_t octet1 = generator8.next();
@@ -90,12 +80,12 @@ TEST(ipMethods, ipSerialization) {
     ASSERT_EQ(mockIpSeq.getArray(), compareIpSeqArray);
 
     std::vector<uint8_t> serializedIp = {(uint8_t)entryType::IP, 4, octet1, octet2, octet3, octet4};
-    ASSERT_EQ(mockIpSeq.serialize(), serializedIp);
+    ASSERT_EQ(mockIpSeq.getBytes(), serializedIp);
     ip mockIpSeqPrevious(octet1, octet2, octet3, octet4);
-    mockIpSeq.deserialize(mockIpSeq.serialize());
-    ASSERT_EQ(mockIpSeq.getOctet1(), mockIpSeqPrevious.getOctet1());
-    ASSERT_EQ(mockIpSeq.getOctet2(), mockIpSeqPrevious.getOctet2());
-    ASSERT_EQ(mockIpSeq.getOctet3(), mockIpSeqPrevious.getOctet3());
-    ASSERT_EQ(mockIpSeq.getOctet4(), mockIpSeqPrevious.getOctet4());
+    ip mockIpSeqNew(mockIpSeq.getBytes());
+    ASSERT_EQ(mockIpSeqNew.getOctet1(), mockIpSeqPrevious.getOctet1());
+    ASSERT_EQ(mockIpSeqNew.getOctet2(), mockIpSeqPrevious.getOctet2());
+    ASSERT_EQ(mockIpSeqNew.getOctet3(), mockIpSeqPrevious.getOctet3());
+    ASSERT_EQ(mockIpSeqNew.getOctet4(), mockIpSeqPrevious.getOctet4());
   }
 }

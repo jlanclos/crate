@@ -7,10 +7,6 @@
 TEST(lintegerMethods, lintegerCreateRead) {
   sequencer generator32(0, 4294967255, 100000000);
 
-  // linteger can be instantiated without arguments, resulting in a value of 0
-  linteger mockLinteger;
-  ASSERT_EQ(mockLinteger.getValue(), 0);
-
   // linteger can be instantiated with a value as an argument
   for (uint16_t i = 0; i < 256; i++) {
     int32_t sequenceValue = generator32.next() - 2147483648;
@@ -55,9 +51,9 @@ TEST(lintegerMethods, lintegerSerialization) {
     ASSERT_EQ(mockLintegerSeq.getValue(), sequenceValue);
 
     std::vector<uint8_t> serializedLinteger = {(uint8_t)entryType::LINTEGER, 4, byte1, byte2, byte3, byte4};
-    ASSERT_EQ(mockLintegerSeq.serialize(), serializedLinteger);
+    ASSERT_EQ(mockLintegerSeq.getBytes(), serializedLinteger);
     linteger mockLintegerSeqPrevious(sequenceValue);
-    mockLintegerSeq.deserialize(mockLintegerSeq.serialize());
-    ASSERT_EQ(mockLintegerSeq.getValue(), mockLintegerSeqPrevious.getValue());
+    linteger mockLintegerSeqNew(mockLintegerSeq.getBytes());
+    ASSERT_EQ(mockLintegerSeqNew.getValue(), mockLintegerSeqPrevious.getValue());
   }
 }

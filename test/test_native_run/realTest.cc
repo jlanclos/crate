@@ -8,10 +8,6 @@ TEST(realMethods, realCreateRead) {
   sequencer generator32(0, 4294967255, 100000000);
   sequencer generator8(0, 255);
 
-  // real can be instantiated without arguments, resulting in a value of 0
-  real mockReal;
-  ASSERT_EQ(mockReal.getValue(), 0.0);
-
   // real can be instantiated with a value as an argument
   for (uint16_t i = 0; i < 256; i++) {
     float sequenceValue = (generator32.next() - 2147483648) / (generator8.next() + 0.00001);
@@ -57,9 +53,9 @@ TEST(realMethods, realSerialization) {
     ASSERT_EQ(mockRealSeq.getValue(), sequenceValue);
 
     std::vector<uint8_t> serializedReal = {(uint8_t)entryType::REAL, 4, byte1, byte2, byte3, byte4};
-    ASSERT_EQ(mockRealSeq.serialize(), serializedReal);
+    ASSERT_EQ(mockRealSeq.getBytes(), serializedReal);
     real mockRealSeqPrevious(sequenceValue);
-    mockRealSeq.deserialize(mockRealSeq.serialize());
-    ASSERT_EQ(mockRealSeq.getValue(), mockRealSeqPrevious.getValue());
+    real mockRealSeqNew(mockRealSeq.getBytes());
+    ASSERT_EQ(mockRealSeqNew.getValue(), mockRealSeqPrevious.getValue());
   }
 }

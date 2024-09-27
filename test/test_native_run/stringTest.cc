@@ -8,10 +8,6 @@
 TEST(stringMethods, stringCreateRead) {
   sequencer generator8(0, 255);
 
-  // string can be instantiated without arguments, resulting in an empty string
-  string mockString;
-  ASSERT_EQ(mockString.getValue(), "");
-
   // string can be instantiated with a string as an argument
   for (uint16_t i = 0; i < 256; i++) {
     uint8_t sequenceStringLength = generator8.next();
@@ -73,9 +69,9 @@ TEST(stringMethods, stringSerialization) {
     string mockStringSeq(sequenceString);
     ASSERT_EQ(mockStringSeq.getValue(), sequenceString);
 
-    ASSERT_EQ(mockStringSeq.serialize(), serializedString);
+    ASSERT_EQ(mockStringSeq.getBytes(), serializedString);
     string mockStringSeqPrevious(sequenceString);
-    mockStringSeq.deserialize(mockStringSeq.serialize());
-    ASSERT_EQ(mockStringSeq.getValue(), mockStringSeqPrevious.getValue());
+    string mockStringSeqNew(mockStringSeq.getBytes());
+    ASSERT_EQ(mockStringSeqNew.getValue(), mockStringSeqPrevious.getValue());
   }
 }

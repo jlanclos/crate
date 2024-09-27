@@ -7,10 +7,6 @@
 TEST(integerMethods, integerCreateRead) {
   sequencer generator16(0, 65535, 500);
 
-  // integer can be instantiated without arguments, resulting in a value of 0
-  integer mockInteger;
-  ASSERT_EQ(mockInteger.getValue(), 0);
-
   // integer can be instantiated with a value as an argument
   for (uint16_t i = 0; i < 256; i++) {
     int16_t sequenceValue = generator16.next() - 32768;
@@ -51,9 +47,9 @@ TEST(integerMethods, integerSerialization) {
     ASSERT_EQ(mockIntegerSeq.getValue(), sequenceValue);
 
     std::vector<uint8_t> serializedInteger = {(uint8_t)entryType::INTEGER, 2, byte1, byte2};
-    ASSERT_EQ(mockIntegerSeq.serialize(), serializedInteger);
+    ASSERT_EQ(mockIntegerSeq.getBytes(), serializedInteger);
     integer mockIntegerSeqPrevious(sequenceValue);
-    mockIntegerSeq.deserialize(mockIntegerSeq.serialize());
-    ASSERT_EQ(mockIntegerSeq.getValue(), mockIntegerSeqPrevious.getValue());
+    integer mockIntegerSeqNew(mockIntegerSeq.getBytes());
+    ASSERT_EQ(mockIntegerSeqNew.getValue(), mockIntegerSeqPrevious.getValue());
   }
 }
