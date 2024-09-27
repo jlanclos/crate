@@ -6,19 +6,17 @@
 #include <string>
 #include <vector>
 
-class string {
+class string : public type {
  public:
-  string();
   string(std::string value);
-  string(std::vector<uint8_t> serializedString);
+  string(std::vector<uint8_t> bytes);
 
   std::string getValue();
 
-  std::vector<uint8_t> serialize();
-  void deserialize(std::vector<uint8_t> serializedString);
+  std::vector<uint8_t> getBytes() override;
 
  private:
-  std::string value = "default";
+  std::string value = "";
 };
 
-bool isValidString(std::vector<uint8_t> serializedString);
+static bool isValidString(std::vector<uint8_t> bytes);

@@ -5,19 +5,16 @@
 
 #include <vector>
 
-class boolean {
+class boolean : public type {
  public:
-  boolean();
   boolean(bool value);
-  boolean(std::vector<uint8_t> serializedBoolean);
+  boolean(std::vector<uint8_t> bytes);
 
   bool getValue();
-
-  std::vector<uint8_t> serialize();
-  void deserialize(std::vector<uint8_t> serializedBoolean);
+  std::vector<uint8_t> getBytes() override;
 
  private:
   bool value = false;
 };
 
-bool isValidBoolean(std::vector<uint8_t> serializedBoolean);
+static bool isValidBoolean(std::vector<uint8_t> bytes);

@@ -29,13 +29,10 @@ class entry {
 
   void setData(std::vector<uint8_t> newData);
   std::vector<uint8_t> getData();
-  std::vector<uint8_t> serialize();
-  void deserialize(std::vector<uint8_t> serialEntry);
 
  private:
-  static bool isValidData(std::vector<uint8_t> data);
-
   uint16_t id = 0;
-  entryType type = entryType::UNKNOWN;
   std::vector<uint8_t> data = {(uint8_t)entryType::UNKNOWN};
 };
+
+bool isValidData(std::vector<uint8_t> data);

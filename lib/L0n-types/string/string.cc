@@ -1,13 +1,28 @@
 #include <string/string.h>
 
 // string class
-string::string() { this->value = ""; }
 string::string(std::string value) { this->value = value; }
-string::string(std::vector<uint8_t> serializedBoolean) { deserialize(serializedBoolean); }
+string::string(std::vector<uint8_t> bytes) {
+  if (isValidString(bytes)) {
+    union {
+      uint32_t integer;
+      uint8_t bytes[4];
+    } dataSize;
+    dataSize.bytes[0] = bytes[1];
+    dataSize.bytes[1] = bytes[2];
+    dataSize.bytes[2] = bytes[3];
+    dataSize.bytes[3] = bytes[4];
+    std::string value = "";
+    for (uint32_t i = 0; i < dataSize.integer; i++) {
+      value += bytes[5 + i];
+    }
+    this->value = value;
+  };
+}
 
 std::string string::getValue() { return this->value; }
 
-std::vector<uint8_t> string::serialize() {
+std::vector<uint8_t> string::getBytes() {
   union {
     uint32_t integer;
     uint8_t bytes[4];
@@ -25,30 +40,12 @@ std::vector<uint8_t> string::serialize() {
   return bytes;
 }
 
-void string::deserialize(std::vector<uint8_t> serializedString) {
-  if (isValidString(serializedString)) {
-    union {
-      uint32_t integer;
-      uint8_t bytes[4];
-    } dataSize;
-    dataSize.bytes[0] = serializedString[1];
-    dataSize.bytes[1] = serializedString[2];
-    dataSize.bytes[2] = serializedString[3];
-    dataSize.bytes[3] = serializedString[4];
-    std::string value = "";
-    for (uint32_t i = 0; i < dataSize.integer; i++) {
-      value += serializedString[5 + i];
-    }
-    this->value = value;
-  };
-}
-
-bool isValidString(std::vector<uint8_t> serializedString) {
-  uint32_t dataSize = serializedString.size();
+bool isValidString(std::vector<uint8_t> bytes) {
+  uint32_t dataSize = bytes.size();
   if (dataSize < 5) {
     return false;
   }
-  if ((entryType)serializedString[0] != entryType::STRING) {
+  if ((entryType)bytes[0] != entryType::STRING) {
     return false;
   }
   return true;

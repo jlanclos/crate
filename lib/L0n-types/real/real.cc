@@ -1,13 +1,24 @@
 #include <real/real.h>
 
 // real class
-real::real() { this->value = 0.0; }
 real::real(float value) { this->value = value; }
-real::real(std::vector<uint8_t> serializedReal) { deserialize(serializedReal); }
+real::real(std::vector<uint8_t> bytes) {
+  if (isValidReal(bytes)) {
+    union {
+      float decimal;
+      uint8_t bytes[4];
+    } number;
+    number.bytes[0] = bytes[2];
+    number.bytes[1] = bytes[3];
+    number.bytes[2] = bytes[4];
+    number.bytes[3] = bytes[5];
+    this->value = number.decimal;
+  };
+}
 
 float real::getValue() { return this->value; }
 
-std::vector<uint8_t> real::serialize() {
+std::vector<uint8_t> real::getBytes() {
   union {
     float decimal;
     uint8_t bytes[4];
@@ -24,30 +35,16 @@ std::vector<uint8_t> real::serialize() {
   return bytes;
 }
 
-void real::deserialize(std::vector<uint8_t> serializedReal) {
-  if (isValidReal(serializedReal)) {
-    union {
-      float decimal;
-      uint8_t bytes[4];
-    } number;
-    number.bytes[0] = serializedReal[2];
-    number.bytes[1] = serializedReal[3];
-    number.bytes[2] = serializedReal[4];
-    number.bytes[3] = serializedReal[5];
-    this->value = number.decimal;
-  };
-}
-
 // methods
-bool isValidReal(std::vector<uint8_t> serializedReal) {
-  uint32_t dataSize = serializedReal.size();
+bool isValidReal(std::vector<uint8_t> bytes) {
+  uint32_t dataSize = bytes.size();
   if (dataSize != 6) {
     return false;
   }
-  if ((entryType)serializedReal[0] != entryType::REAL) {
+  if ((entryType)bytes[0] != entryType::REAL) {
     return false;
   }
-  if (serializedReal[1] != 4) {
+  if (bytes[1] != 4) {
     return false;
   }
   return true;

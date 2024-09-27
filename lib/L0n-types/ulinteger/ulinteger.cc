@@ -1,13 +1,24 @@
 #include <ulinteger/ulinteger.h>
 
 // unsigned long class
-ulinteger::ulinteger() { this->value = 0; }
 ulinteger::ulinteger(uint32_t value) { this->value = value; }
-ulinteger::ulinteger(std::vector<uint8_t> serializedUnsignedLong) { deserialize(serializedUnsignedLong); }
+ulinteger::ulinteger(std::vector<uint8_t> bytes) {
+  if (isValidUlinteger(bytes)) {
+    union {
+      uint32_t ulinteger;
+      uint8_t bytes[4];
+    } number;
+    number.bytes[0] = bytes[2];
+    number.bytes[1] = bytes[3];
+    number.bytes[2] = bytes[4];
+    number.bytes[3] = bytes[5];
+    this->value = number.ulinteger;
+  };
+}
 
 uint32_t ulinteger::getValue() { return this->value; }
 
-std::vector<uint8_t> ulinteger::serialize() {
+std::vector<uint8_t> ulinteger::getBytes() {
   union {
     uint32_t ulinteger;
     uint8_t bytes[4];
@@ -24,30 +35,16 @@ std::vector<uint8_t> ulinteger::serialize() {
   return bytes;
 }
 
-void ulinteger::deserialize(std::vector<uint8_t> serializedUnsignedLong) {
-  if (isValidUlinteger(serializedUnsignedLong)) {
-    union {
-      uint32_t ulinteger;
-      uint8_t bytes[4];
-    } number;
-    number.bytes[0] = serializedUnsignedLong[2];
-    number.bytes[1] = serializedUnsignedLong[3];
-    number.bytes[2] = serializedUnsignedLong[4];
-    number.bytes[3] = serializedUnsignedLong[5];
-    this->value = number.ulinteger;
-  };
-}
-
 // methods
-bool isValidUlinteger(std::vector<uint8_t> serializedUnsignedLong) {
-  uint32_t dataSize = serializedUnsignedLong.size();
+bool isValidUlinteger(std::vector<uint8_t> bytes) {
+  uint32_t dataSize = bytes.size();
   if (dataSize != 6) {
     return false;
   }
-  if ((entryType)serializedUnsignedLong[0] != entryType::ULINTEGER) {
+  if ((entryType)bytes[0] != entryType::ULINTEGER) {
     return false;
   }
-  if (serializedUnsignedLong[1] != 4) {
+  if (bytes[1] != 4) {
     return false;
   }
   return true;

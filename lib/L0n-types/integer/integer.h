@@ -5,19 +5,17 @@
 
 #include <vector>
 
-class integer {
+class integer : public type {
  public:
-  integer();
   integer(int16_t value);
-  integer(std::vector<uint8_t> serializedInteger);
+  integer(std::vector<uint8_t> bytes);
 
   int16_t getValue();
 
-  std::vector<uint8_t> serialize();
-  void deserialize(std::vector<uint8_t> serializedInteger);
+  std::vector<uint8_t> getBytes() override;
 
  private:
   int16_t value = 0;
 };
 
-bool isValidInteger(std::vector<uint8_t> serializedInteger);
+static bool isValidInteger(std::vector<uint8_t> bytes);

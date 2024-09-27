@@ -1,13 +1,22 @@
 #include <sinteger/sinteger.h>
 
 // sinteger class
-sinteger::sinteger() { this->value = 0; }
 sinteger::sinteger(int8_t value) { this->value = value; }
-sinteger::sinteger(std::vector<uint8_t> serializedSinteger) { deserialize(serializedSinteger); }
+sinteger::sinteger(std::vector<uint8_t> bytes) {
+  if (isValidSinteger(bytes)) {
+    union {
+      int8_t sinteger;
+      uint8_t bytes[1];
+    } number;
+    number.bytes[0] = bytes[2];
+    this->value = number.sinteger;
+  };
+  ;
+}
 
 int8_t sinteger::getValue() { return this->value; }
 
-std::vector<uint8_t> sinteger::serialize() {
+std::vector<uint8_t> sinteger::getBytes() {
   union {
     int8_t sinteger;
     uint8_t bytes[1];
@@ -21,27 +30,16 @@ std::vector<uint8_t> sinteger::serialize() {
   return bytes;
 }
 
-void sinteger::deserialize(std::vector<uint8_t> serializedSinteger) {
-  if (isValidSinteger(serializedSinteger)) {
-    union {
-      int8_t sinteger;
-      uint8_t bytes[1];
-    } number;
-    number.bytes[0] = serializedSinteger[2];
-    this->value = number.sinteger;
-  };
-}
-
 // methods
-bool isValidSinteger(std::vector<uint8_t> serializedSinteger) {
-  uint32_t dataSize = serializedSinteger.size();
+bool isValidSinteger(std::vector<uint8_t> bytes) {
+  uint32_t dataSize = bytes.size();
   if (dataSize != 3) {
     return false;
   }
-  if ((entryType)serializedSinteger[0] != entryType::SINTEGER) {
+  if ((entryType)bytes[0] != entryType::SINTEGER) {
     return false;
   }
-  if (serializedSinteger[1] != 1) {
+  if (bytes[1] != 1) {
     return false;
   }
   return true;

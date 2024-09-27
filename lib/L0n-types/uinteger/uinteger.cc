@@ -1,13 +1,22 @@
 #include <uinteger/uinteger.h>
 
 // unsigned integer class
-uinteger::uinteger() { this->value = 0; }
 uinteger::uinteger(uint16_t value) { this->value = value; }
-uinteger::uinteger(std::vector<uint8_t> serializedUinteger) { deserialize(serializedUinteger); }
+uinteger::uinteger(std::vector<uint8_t> bytes) {
+  if (isValidUinteger(bytes)) {
+    union {
+      uint16_t integer;
+      uint8_t bytes[2];
+    } number;
+    number.bytes[0] = bytes[2];
+    number.bytes[1] = bytes[3];
+    this->value = number.integer;
+  };
+}
 
 uint16_t uinteger::getValue() { return this->value; }
 
-std::vector<uint8_t> uinteger::serialize() {
+std::vector<uint8_t> uinteger::getBytes() {
   union {
     uint16_t integer;
     uint8_t bytes[2];
@@ -22,28 +31,16 @@ std::vector<uint8_t> uinteger::serialize() {
   return bytes;
 }
 
-void uinteger::deserialize(std::vector<uint8_t> serializedUinteger) {
-  if (isValidUinteger(serializedUinteger)) {
-    union {
-      uint16_t integer;
-      uint8_t bytes[2];
-    } number;
-    number.bytes[0] = serializedUinteger[2];
-    number.bytes[1] = serializedUinteger[3];
-    this->value = number.integer;
-  };
-}
-
 // methods
-bool isValidUinteger(std::vector<uint8_t> serializedUinteger) {
-  uint32_t dataSize = serializedUinteger.size();
+bool isValidUinteger(std::vector<uint8_t> bytes) {
+  uint32_t dataSize = bytes.size();
   if (dataSize != 4) {
     return false;
   }
-  if ((entryType)serializedUinteger[0] != entryType::UINTEGER) {
+  if ((entryType)bytes[0] != entryType::UINTEGER) {
     return false;
   }
-  if (serializedUinteger[1] != 2) {
+  if (bytes[1] != 2) {
     return false;
   }
   return true;

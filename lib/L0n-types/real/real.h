@@ -5,19 +5,17 @@
 
 #include <vector>
 
-class real {
+class real : public type {
  public:
-  real();
   real(float value);
-  real(std::vector<uint8_t> serializedReal);
+  real(std::vector<uint8_t> bytes);
 
   float getValue();
 
-  std::vector<uint8_t> serialize();
-  void deserialize(std::vector<uint8_t> serializedReal);
+  std::vector<uint8_t> getBytes() override;
 
  private:
   float value = 0.0;
 };
 
-bool isValidReal(std::vector<uint8_t> serializedReal);
+static bool isValidReal(std::vector<uint8_t> bytes);

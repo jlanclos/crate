@@ -19,4 +19,10 @@ enum class entryType : uint8_t {
   IP = 11
 };
 
-static bool isValidDataType(std::vector<uint8_t> data);
+class type {
+ public:
+  virtual std::vector<uint8_t> getBytes() { return bytes; };
+
+ private:
+  std::vector<uint8_t> bytes = {(uint8_t)entryType::UNKNOWN};
+};

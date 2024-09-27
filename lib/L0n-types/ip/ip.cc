@@ -1,7 +1,6 @@
 #include <ip/ip.h>
 
 // ip class
-ip::ip() { this->value = {0, 0, 0, 0}; }
 ip::ip(uint8_t octet1, uint8_t octet2, uint8_t octet3, uint8_t octet4) {
   this->value = {octet1, octet2, octet3, octet4};
 }
@@ -14,7 +13,11 @@ ip::ip(std::string ipString) {
     this->value = {0, 0, 0, 0};
   }
 }
-ip::ip(std::vector<uint8_t> serializedIp) { deserialize(serializedIp); }
+ip::ip(std::vector<uint8_t> bytes) {
+  if (isValidIp(bytes)) {
+    this->value = {bytes[2], bytes[3], bytes[4], bytes[5]};
+  }
+}
 
 std::array<uint8_t, 4> ip::getArray() { return this->value; }
 
@@ -36,7 +39,7 @@ uint8_t ip::getOctet3() { return this->value[2]; }
 
 uint8_t ip::getOctet4() { return this->value[3]; }
 
-std::vector<uint8_t> ip::serialize() {
+std::vector<uint8_t> ip::getBytes() {
   std::vector<uint8_t> bytes;
   bytes.push_back((uint8_t)entryType::IP);
   bytes.push_back(4);
@@ -47,22 +50,16 @@ std::vector<uint8_t> ip::serialize() {
   return bytes;
 }
 
-void ip::deserialize(std::vector<uint8_t> serializedIp) {
-  if (isValidIp(serializedIp)) {
-    this->value = {serializedIp[2], serializedIp[3], serializedIp[4], serializedIp[5]};
-  }
-}
-
 // methods
-bool isValidIp(std::vector<uint8_t> serializedIp) {
-  uint32_t dataSize = serializedIp.size();
+bool isValidIp(std::vector<uint8_t> bytes) {
+  uint32_t dataSize = bytes.size();
   if (dataSize != 6) {
     return false;
   }
-  if ((entryType)serializedIp[0] != entryType::IP) {
+  if ((entryType)bytes[0] != entryType::IP) {
     return false;
   }
-  if (serializedIp[1] != 4) {
+  if (bytes[1] != 4) {
     return false;
   }
   return true;

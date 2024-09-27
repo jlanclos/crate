@@ -4,6 +4,7 @@
 #include <stdint.h>
 
 #include <array>
+#include <vector>
 
 struct reportSummary {
   bool exists = false;
@@ -15,41 +16,6 @@ struct updateSummary {
   uint8_t index;
   bool exists = false;
   entry resultEntry;
-};
-
-struct reportSummaryBool {
-  bool exists = false;
-  bool value;
-};
-
-struct reportSummaryUInt8 {
-  bool exists = false;
-  uint8_t value;
-};
-
-struct reportSummaryUInt16 {
-  bool exists = false;
-  uint16_t value;
-};
-
-struct reportSummaryUInt32 {
-  bool exists = false;
-  uint32_t value;
-};
-
-struct reportSummaryString {
-  bool exists = false;
-  std::string value;
-};
-
-struct reportSummaryMac {
-  bool exists = false;
-  mac value;
-};
-
-struct reportSummaryIp {
-  bool exists = false;
-  ip value;
 };
 
 struct saveSummary {
@@ -73,28 +39,13 @@ class file {
 
   void clear();
 
-  reportSummary reportEntry(uint8_t id);
-  updateSummary updateEntry(entry entryIn);
+  std::vector<uint8_t> reportEntry(uint8_t id);
+  void updateEntry(entry entryIn);
+  void removeEntry(uint8_t);
   saveSummary save();
   loadSummary load(std::vector<uint8_t> fileDataIn);
 
-  updateSummary updateEntryBool(uint8_t id, bool value);
-  updateSummary updateEntryUInt8(uint8_t id, uint8_t value);
-  updateSummary updateEntryUInt16(uint8_t id, uint16_t value);
-  updateSummary updateEntryUInt32(uint8_t id, uint32_t value);
-  updateSummary updateEntryString(uint8_t id, std::string value);
-  updateSummary updateEntryMac(uint8_t id, mac value);
-  updateSummary updateEntryIp(uint8_t id, ip value);
-
-  reportSummaryBool reportEntryBool(uint8_t id);
-  reportSummaryUInt8 reportEntryUInt8(uint8_t id);
-  reportSummaryUInt16 reportEntryUInt16(uint8_t id);
-  reportSummaryUInt32 reportEntryUInt32(uint8_t id);
-  reportSummaryString reportEntryString(uint8_t id);
-  reportSummaryMac reportEntryMac(uint8_t id);
-  reportSummaryIp reportEntryIp(uint8_t id);
-
-  entrySearchSummary entrySearch(uint8_t id, entryType identryType = entryType::UNKNOWN);
+  bool entryExists(uint16_t id);
 
  private:
   std::vector<entry> entries;

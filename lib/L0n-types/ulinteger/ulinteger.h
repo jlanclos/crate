@@ -5,19 +5,17 @@
 
 #include <vector>
 
-class ulinteger {
+class ulinteger : public type {
  public:
-  ulinteger();
   ulinteger(uint32_t value);
-  ulinteger(std::vector<uint8_t> serializedUnsignedLong);
+  ulinteger(std::vector<uint8_t> bytes);
 
   uint32_t getValue();
 
-  std::vector<uint8_t> serialize();
-  void deserialize(std::vector<uint8_t> serializedUnsignedLong);
-  
+  std::vector<uint8_t> getBytes() override;
+
  private:
   uint32_t value = 0;
 };
 
-bool isValidUlinteger(std::vector<uint8_t> serializedUnsignedLong);
+static bool isValidUlinteger(std::vector<uint8_t> bytes);

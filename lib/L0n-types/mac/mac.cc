@@ -1,7 +1,6 @@
 #include <mac/mac.h>
 
 // mac class
-mac::mac() { this->value = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00}; }
 mac::mac(uint8_t octet1, uint8_t octet2, uint8_t octet3, uint8_t octet4, uint8_t octet5, uint8_t octet6) {
   this->value = {octet1, octet2, octet3, octet4, octet5, octet6};
 }
@@ -14,7 +13,11 @@ mac::mac(std::string macString) {
     this->value = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
   }
 }
-mac::mac(std::vector<uint8_t> serializedMac) { deserialize(serializedMac); }
+mac::mac(std::vector<uint8_t> bytes) {
+  if (isValidMac(bytes)) {
+    this->value = {bytes[2], bytes[3], bytes[4], bytes[5], bytes[6], bytes[7]};
+  }
+}
 
 std::array<uint8_t, 6> mac::getArray() { return this->value; }
 
@@ -38,7 +41,7 @@ uint8_t mac::getOctet5() { return this->value[4]; }
 
 uint8_t mac::getOctet6() { return this->value[5]; }
 
-std::vector<uint8_t> mac::serialize() {
+std::vector<uint8_t> mac::getBytes() {
   std::vector<uint8_t> bytes;
   bytes.push_back((uint8_t)entryType::MAC);
   bytes.push_back(6);
@@ -51,23 +54,16 @@ std::vector<uint8_t> mac::serialize() {
   return bytes;
 }
 
-void mac::deserialize(std::vector<uint8_t> serializedMac) {
-  if (isValidMac(serializedMac)) {
-    this->value = {serializedMac[2], serializedMac[3], serializedMac[4],
-                   serializedMac[5], serializedMac[6], serializedMac[7]};
-  }
-}
-
 // methods
-bool isValidMac(std::vector<uint8_t> serializedMac) {
-  uint32_t dataSize = serializedMac.size();
+bool isValidMac(std::vector<uint8_t> bytes) {
+  uint32_t dataSize = bytes.size();
   if (dataSize != 8) {
     return false;
   }
-  if ((entryType)serializedMac[0] != entryType::MAC) {
+  if ((entryType)bytes[0] != entryType::MAC) {
     return false;
   }
-  if (serializedMac[1] != 6) {
+  if (bytes[1] != 6) {
     return false;
   }
   return true;

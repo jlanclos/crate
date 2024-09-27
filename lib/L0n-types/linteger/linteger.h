@@ -5,19 +5,17 @@
 
 #include <vector>
 
-class linteger {
+class linteger : public type {
  public:
-  linteger();
   linteger(int32_t value);
-  linteger(std::vector<uint8_t> serializedInteger);
+  linteger(std::vector<uint8_t> bytes);
 
   int32_t getValue();
 
-  std::vector<uint8_t> serialize();
-  void deserialize(std::vector<uint8_t> serializedInteger);
-  
+  std::vector<uint8_t> getBytes() override;
+
  private:
   int32_t value = 0;
 };
 
-bool isValidLinteger(std::vector<uint8_t> serializedInteger);
+static bool isValidLinteger(std::vector<uint8_t> bytes);

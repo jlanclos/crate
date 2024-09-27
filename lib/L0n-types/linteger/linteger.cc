@@ -1,13 +1,24 @@
 #include <linteger/linteger.h>
 
 // linteger class
-linteger::linteger() { this->value = 0; }
 linteger::linteger(int32_t value) { this->value = value; }
-linteger::linteger(std::vector<uint8_t> serializedLinteger) { deserialize(serializedLinteger); }
+linteger::linteger(std::vector<uint8_t> bytes) {
+  if (isValidLinteger(bytes)) {
+    union {
+      int32_t linteger;
+      uint8_t bytes[4];
+    } number;
+    number.bytes[0] = bytes[2];
+    number.bytes[1] = bytes[3];
+    number.bytes[2] = bytes[4];
+    number.bytes[3] = bytes[5];
+    this->value = number.linteger;
+  };
+}
 
 int32_t linteger::getValue() { return this->value; }
 
-std::vector<uint8_t> linteger::serialize() {
+std::vector<uint8_t> linteger::getBytes() {
   union {
     int32_t linteger;
     uint8_t bytes[4];
@@ -24,30 +35,16 @@ std::vector<uint8_t> linteger::serialize() {
   return bytes;
 }
 
-void linteger::deserialize(std::vector<uint8_t> serializedLinteger) {
-  if (isValidLinteger(serializedLinteger)) {
-    union {
-      int32_t linteger;
-      uint8_t bytes[4];
-    } number;
-    number.bytes[0] = serializedLinteger[2];
-    number.bytes[1] = serializedLinteger[3];
-    number.bytes[2] = serializedLinteger[4];
-    number.bytes[3] = serializedLinteger[5];
-    this->value = number.linteger;
-  };
-}
-
 // method
-bool isValidLinteger(std::vector<uint8_t> serializedLinteger) {
-  uint32_t dataSize = serializedLinteger.size();
+bool isValidLinteger(std::vector<uint8_t> bytes) {
+  uint32_t dataSize = bytes.size();
   if (dataSize != 6) {
     return false;
   }
-  if ((entryType)serializedLinteger[0] != entryType::LINTEGER) {
+  if ((entryType)bytes[0] != entryType::LINTEGER) {
     return false;
   }
-  if (serializedLinteger[1] != 4) {
+  if (bytes[1] != 4) {
     return false;
   }
   return true;
