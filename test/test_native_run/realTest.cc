@@ -27,7 +27,7 @@ TEST(realMethods, realCreateRead) {
     uint8_t byte2 = number.bytes[1];
     uint8_t byte3 = number.bytes[2];
     uint8_t byte4 = number.bytes[3];
-    std::vector<uint8_t> serializedReal = {(uint8_t)entryType::REAL, 4, byte1, byte2, byte3, byte4};
+    std::vector<uint8_t> serializedReal = {(uint8_t)entryType::REAL, byte1, byte2, byte3, byte4};
     real mockRealSeq(serializedReal);
     ASSERT_EQ(mockRealSeq.getValue(), sequenceValue);
   }
@@ -51,7 +51,7 @@ TEST(realMethods, realSerialization) {
     real mockRealSeq(sequenceValue);
     ASSERT_EQ(mockRealSeq.getValue(), sequenceValue);
 
-    std::vector<uint8_t> serializedReal = {(uint8_t)entryType::REAL, 4, byte1, byte2, byte3, byte4};
+    std::vector<uint8_t> serializedReal = {(uint8_t)entryType::REAL, byte1, byte2, byte3, byte4};
     ASSERT_EQ(mockRealSeq.getBytes(), serializedReal);
     real mockRealSeqPrevious(sequenceValue);
     real mockRealSeqNew(mockRealSeq.getBytes());

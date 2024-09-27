@@ -15,7 +15,7 @@ ip::ip(std::string ipString) {
 }
 ip::ip(std::vector<uint8_t> bytes) {
   if (isValidIp(bytes)) {
-    this->value = {bytes[2], bytes[3], bytes[4], bytes[5]};
+    this->value = {bytes[1], bytes[2], bytes[3], bytes[4]};
   }
 }
 
@@ -42,7 +42,6 @@ uint8_t ip::getOctet4() { return this->value[3]; }
 std::vector<uint8_t> ip::getBytes() {
   std::vector<uint8_t> bytes;
   bytes.push_back((uint8_t)entryType::IP);
-  bytes.push_back(4);
   bytes.push_back(this->value[0]);
   bytes.push_back(this->value[1]);
   bytes.push_back(this->value[2]);
@@ -53,13 +52,10 @@ std::vector<uint8_t> ip::getBytes() {
 // methods
 bool isValidIp(std::vector<uint8_t> bytes) {
   uint32_t dataSize = bytes.size();
-  if (dataSize != 6) {
+  if (dataSize != 5) {
     return false;
   }
   if ((entryType)bytes[0] != entryType::IP) {
-    return false;
-  }
-  if (bytes[1] != 4) {
     return false;
   }
   return true;

@@ -23,7 +23,7 @@ TEST(sintegerMethods, sintegerCreateRead) {
     int8_t sequenceValue = generator8.next() - 127;
     number.sinteger = sequenceValue;
     uint8_t byte1 = number.bytes[0];
-    std::vector<uint8_t> serializedSinteger = {(uint8_t)entryType::SINTEGER, 1, byte1};
+    std::vector<uint8_t> serializedSinteger = {(uint8_t)entryType::SINTEGER, byte1};
     sinteger mockSintegerSeq(serializedSinteger);
     ASSERT_EQ(mockSintegerSeq.getValue(), sequenceValue);
   }
@@ -43,7 +43,7 @@ TEST(sintegerMethods, sintegerSerialization) {
     sinteger mockSintegerSeq(sequenceValue);
     ASSERT_EQ(mockSintegerSeq.getValue(), sequenceValue);
 
-    std::vector<uint8_t> serializedSinteger = {(uint8_t)entryType::SINTEGER, 1, byte1};
+    std::vector<uint8_t> serializedSinteger = {(uint8_t)entryType::SINTEGER, byte1};
     ASSERT_EQ(mockSintegerSeq.getBytes(), serializedSinteger);
     sinteger mockSintegerSeqPrevious(sequenceValue);
     sinteger mockSintegerSeqNew(mockSintegerSeq.getBytes());

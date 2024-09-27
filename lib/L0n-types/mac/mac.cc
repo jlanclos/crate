@@ -15,7 +15,7 @@ mac::mac(std::string macString) {
 }
 mac::mac(std::vector<uint8_t> bytes) {
   if (isValidMac(bytes)) {
-    this->value = {bytes[2], bytes[3], bytes[4], bytes[5], bytes[6], bytes[7]};
+    this->value = {bytes[1], bytes[2], bytes[3], bytes[4], bytes[5], bytes[6]};
   }
 }
 
@@ -44,7 +44,6 @@ uint8_t mac::getOctet6() { return this->value[5]; }
 std::vector<uint8_t> mac::getBytes() {
   std::vector<uint8_t> bytes;
   bytes.push_back((uint8_t)entryType::MAC);
-  bytes.push_back(6);
   bytes.push_back(this->value[0]);
   bytes.push_back(this->value[1]);
   bytes.push_back(this->value[2]);
@@ -57,13 +56,10 @@ std::vector<uint8_t> mac::getBytes() {
 // methods
 bool isValidMac(std::vector<uint8_t> bytes) {
   uint32_t dataSize = bytes.size();
-  if (dataSize != 8) {
+  if (dataSize != 7) {
     return false;
   }
   if ((entryType)bytes[0] != entryType::MAC) {
-    return false;
-  }
-  if (bytes[1] != 6) {
     return false;
   }
   return true;

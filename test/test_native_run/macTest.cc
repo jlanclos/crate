@@ -65,7 +65,7 @@ TEST(macMethods, macCreateRead) {
     sprintf(hexCharBytes, "%02hhX:%02hhX:%02hhX:%02hhX:%02hhX:%02hhX", octet1, octet2, octet3, octet4, octet5, octet6);
     std::string macSeqString = hexCharBytes;
     std::array<uint8_t, 6> compareMacSeqArray = {octet1, octet2, octet3, octet4, octet5, octet6};
-    std::vector<uint8_t> serializedMac = {(uint8_t)entryType::MAC, 6, octet1, octet2, octet3, octet4, octet5, octet6};
+    std::vector<uint8_t> serializedMac = {(uint8_t)entryType::MAC, octet1, octet2, octet3, octet4, octet5, octet6};
     mac mockMacSeq(serializedMac);
     ASSERT_EQ(mockMacSeq.getArray(), compareMacSeqArray);
     ASSERT_EQ(mockMacSeq.getString(), macSeqString);
@@ -92,7 +92,7 @@ TEST(macMethods, macSerialization) {
     mac mockMacSeq(octet1, octet2, octet3, octet4, octet5, octet6);
     ASSERT_EQ(mockMacSeq.getArray(), compareMacSeqArray);
 
-    std::vector<uint8_t> serializedMac = {(uint8_t)entryType::MAC, 6, octet1, octet2, octet3, octet4, octet5, octet6};
+    std::vector<uint8_t> serializedMac = {(uint8_t)entryType::MAC, octet1, octet2, octet3, octet4, octet5, octet6};
     ASSERT_EQ(mockMacSeq.getBytes(), serializedMac);
     mac mockMacSeqPrevious(octet1, octet2, octet3, octet4, octet5, octet6);
     mac mockMacSeqNew(mockMacSeq.getBytes());

@@ -12,10 +12,10 @@ TEST(booleanMethods, booleanCreateRead) {
   ASSERT_EQ(mockBooleanFalse.getValue(), false);
 
   // boolean can be instatiated with a serializedBoolean vector
-  std::vector<uint8_t> serializedBooleanTrue = {(uint8_t)entryType::BOOLEAN, 1, true};
+  std::vector<uint8_t> serializedBooleanTrue = {(uint8_t)entryType::BOOLEAN, true};
   boolean mockBooleanSerializedTrue(serializedBooleanTrue);
   ASSERT_EQ(mockBooleanSerializedTrue.getValue(), true);
-  std::vector<uint8_t> serializedBooleanFalse = {(uint8_t)entryType::BOOLEAN, 1, false};
+  std::vector<uint8_t> serializedBooleanFalse = {(uint8_t)entryType::BOOLEAN, false};
   boolean mockBooleanSerializedFalse(serializedBooleanFalse);
   ASSERT_EQ(mockBooleanSerializedFalse.getValue(), false);
 }
@@ -24,7 +24,7 @@ TEST(booleanMethods, booleanSerialization) {
   boolean mockBooleanSerialization(true);
   ASSERT_EQ(mockBooleanSerialization.getValue(), true);
 
-  std::vector<uint8_t> serializationBooleanTrue = {(uint8_t)entryType::BOOLEAN, 1, true};
+  std::vector<uint8_t> serializationBooleanTrue = {(uint8_t)entryType::BOOLEAN, true};
   ASSERT_EQ(mockBooleanSerialization.getBytes(), serializationBooleanTrue);
   boolean mockBooleanSerializationPrevious(true);
   boolean mockBooleanSerializationNew(mockBooleanSerialization.getBytes());

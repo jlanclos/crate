@@ -55,7 +55,7 @@ TEST(ipMethods, ipCreateRead) {
     sprintf(hexCharBytes, "%hu.%hu.%hu.%hu", octet1, octet2, octet3, octet4);
     std::string ipSeqString = hexCharBytes;
     std::array<uint8_t, 4> compareIpSeqArray = {octet1, octet2, octet3, octet4};
-    std::vector<uint8_t> serializedIp = {(uint8_t)entryType::IP, 4, octet1, octet2, octet3, octet4};
+    std::vector<uint8_t> serializedIp = {(uint8_t)entryType::IP, octet1, octet2, octet3, octet4};
     ip mockIpSeq(serializedIp);
     ASSERT_EQ(mockIpSeq.getArray(), compareIpSeqArray);
     ASSERT_EQ(mockIpSeq.getString(), ipSeqString);
@@ -78,7 +78,7 @@ TEST(ipMethods, ipSerialization) {
     ip mockIpSeq(octet1, octet2, octet3, octet4);
     ASSERT_EQ(mockIpSeq.getArray(), compareIpSeqArray);
 
-    std::vector<uint8_t> serializedIp = {(uint8_t)entryType::IP, 4, octet1, octet2, octet3, octet4};
+    std::vector<uint8_t> serializedIp = {(uint8_t)entryType::IP, octet1, octet2, octet3, octet4};
     ASSERT_EQ(mockIpSeq.getBytes(), serializedIp);
     ip mockIpSeqPrevious(octet1, octet2, octet3, octet4);
     ip mockIpSeqNew(mockIpSeq.getBytes());

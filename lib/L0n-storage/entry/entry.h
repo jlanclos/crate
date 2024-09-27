@@ -13,26 +13,18 @@
 #include <ulinteger/ulinteger.h>
 #include <usinteger/usinteger.h>
 
-#include <string>
 #include <vector>
 
 class entry {
  public:
-  entry();
-  entry(uint16_t id);
-  entry(std::vector<uint8_t> data);
-  entry(uint16_t id, std::vector<uint8_t> data);
+  entry(uint16_t id, type bytes);
 
-  void setId(uint16_t newId);
   uint16_t getId();
   entryType getType();
 
-  void setData(std::vector<uint8_t> newData);
-  std::vector<uint8_t> getData();
+  std::vector<uint8_t> getBytes();
 
  private:
-  uint16_t id = 0;
-  std::vector<uint8_t> data = {(uint8_t)entryType::UNKNOWN};
+  uint16_t id;
+  std::vector<uint8_t> bytes;
 };
-
-bool isValidData(std::vector<uint8_t> data);
