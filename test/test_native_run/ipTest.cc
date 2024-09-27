@@ -79,9 +79,9 @@ TEST(ipMethods, ipSerialization) {
     ASSERT_EQ(mockIpSeq.getArray(), compareIpSeqArray);
 
     std::vector<uint8_t> serializedIp = {(uint8_t)entryType::IP, octet1, octet2, octet3, octet4};
-    ASSERT_EQ(mockIpSeq.getBytes(), serializedIp);
+    ASSERT_EQ(mockIpSeq.encode(), serializedIp);
     ip mockIpSeqPrevious(octet1, octet2, octet3, octet4);
-    ip mockIpSeqNew(mockIpSeq.getBytes());
+    ip mockIpSeqNew(mockIpSeq.encode());
     ASSERT_EQ(mockIpSeqNew.getOctet1(), mockIpSeqPrevious.getOctet1());
     ASSERT_EQ(mockIpSeqNew.getOctet2(), mockIpSeqPrevious.getOctet2());
     ASSERT_EQ(mockIpSeqNew.getOctet3(), mockIpSeqPrevious.getOctet3());

@@ -10,7 +10,7 @@ usinteger::usinteger(std::vector<uint8_t> bytes) {
 
 uint8_t usinteger::getValue() { return this->value; }
 
-std::vector<uint8_t> usinteger::getBytes() {
+std::vector<uint8_t> usinteger::encode() {
   std::vector<uint8_t> bytes;
   bytes.push_back((uint8_t)entryType::USINTEGER);
   bytes.push_back(this->value);

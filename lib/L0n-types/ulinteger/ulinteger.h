@@ -12,7 +12,7 @@ class ulinteger : public type {
 
   uint32_t getValue();
 
-  std::vector<uint8_t> getBytes() override;
+  std::vector<uint8_t> encode() override;
 
  private:
   uint32_t value = 0;

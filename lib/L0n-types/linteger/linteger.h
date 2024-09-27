@@ -12,7 +12,7 @@ class linteger : public type {
 
   int32_t getValue();
 
-  std::vector<uint8_t> getBytes() override;
+  std::vector<uint8_t> encode() override;
 
  private:
   int32_t value = 0;

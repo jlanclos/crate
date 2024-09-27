@@ -20,7 +20,7 @@ class ip : public type {
   uint8_t getOctet3();
   uint8_t getOctet4();
 
-  std::vector<uint8_t> getBytes() override;
+  std::vector<uint8_t> encode() override;
 
  private:
   std::array<uint8_t, 4> value;

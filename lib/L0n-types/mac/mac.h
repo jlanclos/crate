@@ -22,7 +22,7 @@ class mac : public type {
   uint8_t getOctet5();
   uint8_t getOctet6();
 
-  std::vector<uint8_t> getBytes() override;
+  std::vector<uint8_t> encode() override;
 
  private:
   std::array<uint8_t, 6> value;

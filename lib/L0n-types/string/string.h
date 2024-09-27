@@ -13,7 +13,7 @@ class string : public type {
 
   std::string getValue();
 
-  std::vector<uint8_t> getBytes() override;
+  std::vector<uint8_t> encode() override;
 
  private:
   std::string value = "";

@@ -41,7 +41,7 @@ uint8_t mac::getOctet5() { return this->value[4]; }
 
 uint8_t mac::getOctet6() { return this->value[5]; }
 
-std::vector<uint8_t> mac::getBytes() {
+std::vector<uint8_t> mac::encode() {
   std::vector<uint8_t> bytes;
   bytes.push_back((uint8_t)entryType::MAC);
   bytes.push_back(this->value[0]);

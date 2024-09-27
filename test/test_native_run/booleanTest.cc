@@ -25,8 +25,8 @@ TEST(booleanMethods, booleanSerialization) {
   ASSERT_EQ(mockBooleanSerialization.getValue(), true);
 
   std::vector<uint8_t> serializationBooleanTrue = {(uint8_t)entryType::BOOLEAN, true};
-  ASSERT_EQ(mockBooleanSerialization.getBytes(), serializationBooleanTrue);
+  ASSERT_EQ(mockBooleanSerialization.encode(), serializationBooleanTrue);
   boolean mockBooleanSerializationPrevious(true);
-  boolean mockBooleanSerializationNew(mockBooleanSerialization.getBytes());
+  boolean mockBooleanSerializationNew(mockBooleanSerialization.encode());
   ASSERT_EQ(mockBooleanSerializationNew.getValue(), mockBooleanSerializationPrevious.getValue());
 }

@@ -93,9 +93,9 @@ TEST(macMethods, macSerialization) {
     ASSERT_EQ(mockMacSeq.getArray(), compareMacSeqArray);
 
     std::vector<uint8_t> serializedMac = {(uint8_t)entryType::MAC, octet1, octet2, octet3, octet4, octet5, octet6};
-    ASSERT_EQ(mockMacSeq.getBytes(), serializedMac);
+    ASSERT_EQ(mockMacSeq.encode(), serializedMac);
     mac mockMacSeqPrevious(octet1, octet2, octet3, octet4, octet5, octet6);
-    mac mockMacSeqNew(mockMacSeq.getBytes());
+    mac mockMacSeqNew(mockMacSeq.encode());
     ASSERT_EQ(mockMacSeqNew.getOctet1(), mockMacSeqPrevious.getOctet1());
     ASSERT_EQ(mockMacSeqNew.getOctet2(), mockMacSeqPrevious.getOctet2());
     ASSERT_EQ(mockMacSeqNew.getOctet3(), mockMacSeqPrevious.getOctet3());

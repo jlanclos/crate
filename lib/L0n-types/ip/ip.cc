@@ -39,7 +39,7 @@ uint8_t ip::getOctet3() { return this->value[2]; }
 
 uint8_t ip::getOctet4() { return this->value[3]; }
 
-std::vector<uint8_t> ip::getBytes() {
+std::vector<uint8_t> ip::encode() {
   std::vector<uint8_t> bytes;
   bytes.push_back((uint8_t)entryType::IP);
   bytes.push_back(this->value[0]);

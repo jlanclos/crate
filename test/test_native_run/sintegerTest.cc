@@ -44,9 +44,9 @@ TEST(sintegerMethods, sintegerSerialization) {
     ASSERT_EQ(mockSintegerSeq.getValue(), sequenceValue);
 
     std::vector<uint8_t> serializedSinteger = {(uint8_t)entryType::SINTEGER, byte1};
-    ASSERT_EQ(mockSintegerSeq.getBytes(), serializedSinteger);
+    ASSERT_EQ(mockSintegerSeq.encode(), serializedSinteger);
     sinteger mockSintegerSeqPrevious(sequenceValue);
-    sinteger mockSintegerSeqNew(mockSintegerSeq.getBytes());
+    sinteger mockSintegerSeqNew(mockSintegerSeq.encode());
     ASSERT_EQ(mockSintegerSeqNew.getValue(), mockSintegerSeqPrevious.getValue());
   }
 }

@@ -16,7 +16,7 @@ integer::integer(std::vector<uint8_t> bytes) {
 
 int16_t integer::getValue() { return this->value; }
 
-std::vector<uint8_t> integer::getBytes() {
+std::vector<uint8_t> integer::encode() {
   union {
     int16_t integer;
     uint8_t bytes[2];

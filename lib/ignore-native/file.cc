@@ -3,13 +3,9 @@
 // file class
 file::file() {}
 
-void file::clear() {
-  for (uint16_t i = 0; i < this->entries.size(); i++) {
-    this->entries.clear();
-  }
-}
+void file::clear() { this->entries.clear(); }
 
-reportSummary file::reportEntry(uint8_t id) {
+std::vector<uint8_t> file::getEntry(uint16t id) {
   reportSummary summary;
   summary.exists = false;
   summary.index = 0;
@@ -22,7 +18,7 @@ reportSummary file::reportEntry(uint8_t id) {
   return summary;
 }
 
-updateSummary file::updateEntry(entry entryIn) {
+void file::updateEntry(entry entryIn) {
   updateSummary summary;
   summary.exists = false;
   summary.index = 0;
@@ -42,33 +38,29 @@ updateSummary file::updateEntry(entry entryIn) {
   return summary;
 }
 
-saveSummary file::save() {
-  saveSummary summary;
-  summary.success = false;
+std::vector<uint8_t> file::getBytes() {
+  std::vector<uint8_t> bytes;
   std::vector<entry> entries = this->entries;
-  uint16_t entriesSize = entries.size();
-  for (uint8_t i = 0; i < 2; i++) {
-    summary.package.push_back(entriesSize >> (i * 8));
-  }
-  for (uint16_t i = 0; i < entriesSize; i++) {
-    std::vector<uint8_t> entryData = entries[i].getData();
-    summary.package.push_back(entries[i].getId());
-    summary.package.push_back((uint8_t)entries[i].getType());
-    uint16_t entrySize = entries[i].getDataSize();
-    for (uint8_t j = 0; j < 2; j++) {
-      summary.package.push_back(entrySize >> (j * 8));
+  union {
+    uint16_t value;
+    uint8_t bytes[2];
+  } entriesSize;
+  entriesSize.value = entries.size();
+  bytes.push_back(entriesSize.bytes[0]);
+  bytes.push_back(entriesSize.bytes[1]);
+  for (uint16_t i = 0; i < entriesSize.value; i++) {
+    uint16_t entryId = entries[i].getId();
+    std::vector<uint8_t> entryBytes = entries[i].getBytes();
+    uint32_t entryBytesSize = entryBytes.size();
+    bytes.push_back(entryId);
+    for (uint32_t j = 0; j < entryBytesSize; j++) {
+      bytes.push_back(entryBytes[j]);
     }
-    for (uint16_t j = 0; j < entrySize; j++) {
-      summary.package.push_back(entryData[j]);
-    }
   }
-  summary.success = true;
-  return summary;
+  return bytes;
 }
 
-loadSummary file::load(std::vector<uint8_t> fileDataIn) {
-  loadSummary summary;
-  summary.success = false;
+void file::load(std::vector<uint8_t> fileDataIn) {
   std::vector<uint8_t> loadImage = fileDataIn;
   std::vector<entry> loadEntries;
   if (loadImage.size() > 0) {
@@ -98,9 +90,7 @@ loadSummary file::load(std::vector<uint8_t> fileDataIn) {
       loadEntries.push_back(entry);
     }
     this->entries = loadEntries;
-    summary.success = true;
   }
-  return summary;
 }
 
 bool file::entryExists(uint16_t id) {

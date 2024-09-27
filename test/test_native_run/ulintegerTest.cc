@@ -50,9 +50,9 @@ TEST(ulintegerMethods, ulintegerSerialization) {
     ASSERT_EQ(mockUlintegerSeq.getValue(), sequenceValue);
 
     std::vector<uint8_t> serializedUlinteger = {(uint8_t)entryType::ULINTEGER, byte1, byte2, byte3, byte4};
-    ASSERT_EQ(mockUlintegerSeq.getBytes(), serializedUlinteger);
+    ASSERT_EQ(mockUlintegerSeq.encode(), serializedUlinteger);
     ulinteger mockUlintegerSeqPrevious(sequenceValue);
-    ulinteger mockUlintegerSeqNew(mockUlintegerSeq.getBytes());
+    ulinteger mockUlintegerSeqNew(mockUlintegerSeq.encode());
     ASSERT_EQ(mockUlintegerSeqNew.getValue(), mockUlintegerSeqPrevious.getValue());
   }
 }

@@ -11,7 +11,7 @@ sinteger::sinteger(std::vector<uint8_t> bytes) {
 
 int8_t sinteger::getValue() { return this->value; }
 
-std::vector<uint8_t> sinteger::getBytes() {
+std::vector<uint8_t> sinteger::encode() {
   std::vector<uint8_t> bytes;
   bytes.push_back((uint8_t)entryType::SINTEGER);
   bytes.push_back(this->value);

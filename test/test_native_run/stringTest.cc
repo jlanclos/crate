@@ -68,9 +68,9 @@ TEST(stringMethods, stringSerialization) {
     string mockStringSeq(sequenceString);
     ASSERT_EQ(mockStringSeq.getValue(), sequenceString);
 
-    ASSERT_EQ(mockStringSeq.getBytes(), serializedString);
+    ASSERT_EQ(mockStringSeq.encode(), serializedString);
     string mockStringSeqPrevious(sequenceString);
-    string mockStringSeqNew(mockStringSeq.getBytes());
+    string mockStringSeqNew(mockStringSeq.encode());
     ASSERT_EQ(mockStringSeqNew.getValue(), mockStringSeqPrevious.getValue());
   }
 }

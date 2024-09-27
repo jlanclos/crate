@@ -46,9 +46,9 @@ TEST(integerMethods, integerSerialization) {
     ASSERT_EQ(mockIntegerSeq.getValue(), sequenceValue);
 
     std::vector<uint8_t> serializedInteger = {(uint8_t)entryType::INTEGER, byte1, byte2};
-    ASSERT_EQ(mockIntegerSeq.getBytes(), serializedInteger);
+    ASSERT_EQ(mockIntegerSeq.encode(), serializedInteger);
     integer mockIntegerSeqPrevious(sequenceValue);
-    integer mockIntegerSeqNew(mockIntegerSeq.getBytes());
+    integer mockIntegerSeqNew(mockIntegerSeq.encode());
     ASSERT_EQ(mockIntegerSeqNew.getValue(), mockIntegerSeqPrevious.getValue());
   }
 }

@@ -18,7 +18,7 @@ linteger::linteger(std::vector<uint8_t> bytes) {
 
 int32_t linteger::getValue() { return this->value; }
 
-std::vector<uint8_t> linteger::getBytes() {
+std::vector<uint8_t> linteger::encode() {
   union {
     int32_t linteger;
     uint8_t bytes[4];

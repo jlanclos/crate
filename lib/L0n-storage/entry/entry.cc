@@ -3,7 +3,7 @@
 // entry class
 entry::entry(uint16_t id, type data) {
   this->id = id;
-  this->bytes = data.getBytes();
+  this->bytes = data.encode();
 }
 
 uint16_t entry::getId() { return this->id; }

@@ -22,7 +22,7 @@ string::string(std::vector<uint8_t> bytes) {
 
 std::string string::getValue() { return this->value; }
 
-std::vector<uint8_t> string::getBytes() {
+std::vector<uint8_t> string::encode() {
   union {
     uint32_t integer;
     uint8_t bytes[4];

@@ -12,7 +12,7 @@ class real : public type {
 
   float getValue();
 
-  std::vector<uint8_t> getBytes() override;
+  std::vector<uint8_t> encode() override;
 
  private:
   float value = 0.0;

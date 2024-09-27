@@ -11,7 +11,7 @@ class boolean : public type {
   boolean(std::vector<uint8_t> bytes);
 
   bool getValue();
-  std::vector<uint8_t> getBytes() override;
+  std::vector<uint8_t> encode() override;
 
  private:
   bool value = false;

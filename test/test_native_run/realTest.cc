@@ -52,9 +52,9 @@ TEST(realMethods, realSerialization) {
     ASSERT_EQ(mockRealSeq.getValue(), sequenceValue);
 
     std::vector<uint8_t> serializedReal = {(uint8_t)entryType::REAL, byte1, byte2, byte3, byte4};
-    ASSERT_EQ(mockRealSeq.getBytes(), serializedReal);
+    ASSERT_EQ(mockRealSeq.encode(), serializedReal);
     real mockRealSeqPrevious(sequenceValue);
-    real mockRealSeqNew(mockRealSeq.getBytes());
+    real mockRealSeqNew(mockRealSeq.encode());
     ASSERT_EQ(mockRealSeqNew.getValue(), mockRealSeqPrevious.getValue());
   }
 }

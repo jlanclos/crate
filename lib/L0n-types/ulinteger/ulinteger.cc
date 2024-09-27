@@ -18,7 +18,7 @@ ulinteger::ulinteger(std::vector<uint8_t> bytes) {
 
 uint32_t ulinteger::getValue() { return this->value; }
 
-std::vector<uint8_t> ulinteger::getBytes() {
+std::vector<uint8_t> ulinteger::encode() {
   union {
     uint32_t ulinteger;
     uint8_t bytes[4];

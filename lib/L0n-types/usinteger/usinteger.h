@@ -12,7 +12,7 @@ class usinteger : public type {
 
   uint8_t getValue();
 
-  std::vector<uint8_t> getBytes() override;
+  std::vector<uint8_t> encode() override;
 
  private:
   uint8_t value = 0;

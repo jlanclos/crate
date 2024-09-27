@@ -50,9 +50,9 @@ TEST(lintegerMethods, lintegerSerialization) {
     ASSERT_EQ(mockLintegerSeq.getValue(), sequenceValue);
 
     std::vector<uint8_t> serializedLinteger = {(uint8_t)entryType::LINTEGER, byte1, byte2, byte3, byte4};
-    ASSERT_EQ(mockLintegerSeq.getBytes(), serializedLinteger);
+    ASSERT_EQ(mockLintegerSeq.encode(), serializedLinteger);
     linteger mockLintegerSeqPrevious(sequenceValue);
-    linteger mockLintegerSeqNew(mockLintegerSeq.getBytes());
+    linteger mockLintegerSeqNew(mockLintegerSeq.encode());
     ASSERT_EQ(mockLintegerSeqNew.getValue(), mockLintegerSeqPrevious.getValue());
   }
 }

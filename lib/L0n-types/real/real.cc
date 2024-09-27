@@ -18,7 +18,7 @@ real::real(std::vector<uint8_t> bytes) {
 
 float real::getValue() { return this->value; }
 
-std::vector<uint8_t> real::getBytes() {
+std::vector<uint8_t> real::encode() {
   union {
     float decimal;
     uint8_t bytes[4];

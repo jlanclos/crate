@@ -10,7 +10,7 @@ boolean::boolean(std::vector<uint8_t> bytes) {
 
 bool boolean::getValue() { return this->value; }
 
-std::vector<uint8_t> boolean::getBytes() {
+std::vector<uint8_t> boolean::encode() {
   std::vector<uint8_t> bytes;
   bytes.push_back((uint8_t)entryType::BOOLEAN);
   bytes.push_back(this->value);
