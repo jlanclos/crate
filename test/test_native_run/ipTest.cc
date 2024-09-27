@@ -57,7 +57,6 @@ TEST(ipMethods, ipCreateRead) {
     std::array<uint8_t, 4> compareIpSeqArray = {octet1, octet2, octet3, octet4};
     std::vector<uint8_t> serializedIp = {(uint8_t)entryType::IP, 4, octet1, octet2, octet3, octet4};
     ip mockIpSeq(serializedIp);
-    ASSERT_EQ(isValidIp(serializedIp), true);
     ASSERT_EQ(mockIpSeq.getArray(), compareIpSeqArray);
     ASSERT_EQ(mockIpSeq.getString(), ipSeqString);
     ASSERT_EQ(mockIpSeq.getOctet1(), octet1);

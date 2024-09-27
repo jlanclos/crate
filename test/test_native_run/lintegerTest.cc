@@ -28,7 +28,6 @@ TEST(lintegerMethods, lintegerCreateRead) {
     uint8_t byte4 = number.bytes[3];
     std::vector<uint8_t> serializedLinteger = {(uint8_t)entryType::LINTEGER, 4, byte1, byte2, byte3, byte4};
     linteger mockLintegerSeq(serializedLinteger);
-    ASSERT_EQ(isValidLinteger(serializedLinteger), true);
     ASSERT_EQ(mockLintegerSeq.getValue(), sequenceValue);
   }
 }

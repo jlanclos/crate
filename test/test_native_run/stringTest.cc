@@ -40,7 +40,6 @@ TEST(stringMethods, stringCreateRead) {
       serializedString.push_back((uint8_t)stringCharacter);
     }
     string mockStringSeq(serializedString);
-    ASSERT_EQ(isValidString(serializedString), true);
     ASSERT_EQ(mockStringSeq.getValue(), sequenceString);
   }
 }

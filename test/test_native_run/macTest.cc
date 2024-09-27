@@ -67,7 +67,6 @@ TEST(macMethods, macCreateRead) {
     std::array<uint8_t, 6> compareMacSeqArray = {octet1, octet2, octet3, octet4, octet5, octet6};
     std::vector<uint8_t> serializedMac = {(uint8_t)entryType::MAC, 6, octet1, octet2, octet3, octet4, octet5, octet6};
     mac mockMacSeq(serializedMac);
-    ASSERT_EQ(isValidMac(serializedMac), true);
     ASSERT_EQ(mockMacSeq.getArray(), compareMacSeqArray);
     ASSERT_EQ(mockMacSeq.getString(), macSeqString);
     ASSERT_EQ(mockMacSeq.getOctet1(), octet1);

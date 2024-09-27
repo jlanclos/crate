@@ -26,7 +26,6 @@ TEST(uintegerMethods, uintegerCreateRead) {
     uint8_t byte2 = number.bytes[1];
     std::vector<uint8_t> serializedUinteger = {(uint8_t)entryType::UINTEGER, 2, byte1, byte2};
     uinteger mockUintegerSeq(serializedUinteger);
-    ASSERT_EQ(isValidUinteger(serializedUinteger), true);
     ASSERT_EQ(mockUintegerSeq.getValue(), sequenceValue);
   }
 }

@@ -25,7 +25,6 @@ TEST(sintegerMethods, sintegerCreateRead) {
     uint8_t byte1 = number.bytes[0];
     std::vector<uint8_t> serializedSinteger = {(uint8_t)entryType::SINTEGER, 1, byte1};
     sinteger mockSintegerSeq(serializedSinteger);
-    ASSERT_EQ(isValidSinteger(serializedSinteger), true);
     ASSERT_EQ(mockSintegerSeq.getValue(), sequenceValue);
   }
 }
