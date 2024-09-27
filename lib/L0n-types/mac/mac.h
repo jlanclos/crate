@@ -1,20 +1,15 @@
 #pragma once
 
-#include <stdint.h>
 #include <types.h>
-
-#include <array>
-#include <string>
-#include <vector>
 
 class mac : public type {
  public:
   mac(uint8_t octet1, uint8_t octet2, uint8_t octet3, uint8_t octet4, uint8_t octet5, uint8_t octet6);
-  mac(std::string macString);
-  mac(std::vector<uint8_t> bytes);
+  mac(string_t macString);
+  mac(encoding_t bytes);
 
-  std::array<uint8_t, 6> getArray();
-  std::string getString();
+  macArray_t getArray();
+  string_t getString();
   uint8_t getOctet1();
   uint8_t getOctet2();
   uint8_t getOctet3();
@@ -22,10 +17,10 @@ class mac : public type {
   uint8_t getOctet5();
   uint8_t getOctet6();
 
-  std::vector<uint8_t> encode() override;
+  encoding_t encode() override;
 
  private:
-  std::array<uint8_t, 6> value;
+  macArray_t value;
 };
 
-static bool isValidMac(std::vector<uint8_t> bytes);
+static bool isValidMac(encoding_t bytes);

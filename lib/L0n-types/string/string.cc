@@ -1,8 +1,8 @@
 #include <string/string.h>
 
 // string class
-string::string(std::string value) { this->value = value; }
-string::string(std::vector<uint8_t> bytes) {
+string::string(string_t value) { this->value = value; }
+string::string(encoding_t bytes) {
   if (isValidString(bytes)) {
     union {
       uint32_t integer;
@@ -12,7 +12,7 @@ string::string(std::vector<uint8_t> bytes) {
     dataSize.bytes[1] = bytes[2];
     dataSize.bytes[2] = bytes[3];
     dataSize.bytes[3] = bytes[4];
-    std::string value = "";
+    string_t value = "";
     for (uint32_t i = 0; i < dataSize.integer; i++) {
       value += bytes[5 + i];
     }
@@ -20,14 +20,14 @@ string::string(std::vector<uint8_t> bytes) {
   };
 }
 
-std::string string::getValue() { return this->value; }
+string_t string::getValue() { return this->value; }
 
-std::vector<uint8_t> string::encode() {
+encoding_t string::encode() {
   union {
     uint32_t integer;
     uint8_t bytes[4];
   } dataSize;
-  std::vector<uint8_t> bytes;
+  encoding_t bytes;
   dataSize.integer = this->value.length();
   bytes.push_back((uint8_t)entryType::STRING);
   bytes.push_back(dataSize.bytes[0]);
@@ -40,7 +40,7 @@ std::vector<uint8_t> string::encode() {
   return bytes;
 }
 
-bool isValidString(std::vector<uint8_t> bytes) {
+bool isValidString(encoding_t bytes) {
   uint32_t dataSize = bytes.size();
   if (dataSize < 5) {
     return false;

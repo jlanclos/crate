@@ -2,7 +2,7 @@
 
 // unsigned integer class
 usinteger::usinteger(uint8_t value) { this->value = value; }
-usinteger::usinteger(std::vector<uint8_t> bytes) {
+usinteger::usinteger(encoding_t bytes) {
   if (isValidUsinteger(bytes)) {
     this->value = bytes[1];
   };
@@ -10,15 +10,15 @@ usinteger::usinteger(std::vector<uint8_t> bytes) {
 
 uint8_t usinteger::getValue() { return this->value; }
 
-std::vector<uint8_t> usinteger::encode() {
-  std::vector<uint8_t> bytes;
+encoding_t usinteger::encode() {
+  encoding_t bytes;
   bytes.push_back((uint8_t)entryType::USINTEGER);
   bytes.push_back(this->value);
   return bytes;
 }
 
 // methods
-bool isValidUsinteger(std::vector<uint8_t> bytes) {
+bool isValidUsinteger(encoding_t bytes) {
   uint32_t dataSize = bytes.size();
   if (dataSize != 2) {
     return false;

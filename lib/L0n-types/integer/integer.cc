@@ -2,7 +2,7 @@
 
 // integer class
 integer::integer(int16_t value) { this->value = value; }
-integer::integer(std::vector<uint8_t> bytes) {
+integer::integer(encoding_t bytes) {
   if (isValidInteger(bytes)) {
     union {
       int16_t integer;
@@ -16,12 +16,12 @@ integer::integer(std::vector<uint8_t> bytes) {
 
 int16_t integer::getValue() { return this->value; }
 
-std::vector<uint8_t> integer::encode() {
+encoding_t integer::encode() {
   union {
     int16_t integer;
     uint8_t bytes[2];
   } number;
-  std::vector<uint8_t> bytes;
+  encoding_t bytes;
   number.integer = this->value;
   bytes.push_back((uint8_t)entryType::INTEGER);
   bytes.push_back(number.bytes[0]);
@@ -30,7 +30,7 @@ std::vector<uint8_t> integer::encode() {
 }
 
 // methods
-bool isValidInteger(std::vector<uint8_t> bytes) {
+bool isValidInteger(encoding_t bytes) {
   uint32_t dataSize = bytes.size();
   if (dataSize != 3) {
     return false;

@@ -2,7 +2,7 @@
 
 // boolean class
 boolean::boolean(bool value) { this->value = value; }
-boolean::boolean(std::vector<uint8_t> bytes) {
+boolean::boolean(encoding_t bytes) {
   if (isValidBoolean(bytes)) {
     this->value = bytes[1];
   };
@@ -10,15 +10,15 @@ boolean::boolean(std::vector<uint8_t> bytes) {
 
 bool boolean::getValue() { return this->value; }
 
-std::vector<uint8_t> boolean::encode() {
-  std::vector<uint8_t> bytes;
+encoding_t boolean::encode() {
+  encoding_t bytes;
   bytes.push_back((uint8_t)entryType::BOOLEAN);
   bytes.push_back(this->value);
   return bytes;
 }
 
 // methods
-bool isValidBoolean(std::vector<uint8_t> bytes) {
+bool isValidBoolean(encoding_t bytes) {
   uint32_t dataSize = bytes.size();
   if (dataSize != 2) {
     return false;

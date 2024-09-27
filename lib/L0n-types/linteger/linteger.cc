@@ -2,7 +2,7 @@
 
 // linteger class
 linteger::linteger(int32_t value) { this->value = value; }
-linteger::linteger(std::vector<uint8_t> bytes) {
+linteger::linteger(encoding_t bytes) {
   if (isValidLinteger(bytes)) {
     union {
       int32_t linteger;
@@ -18,12 +18,12 @@ linteger::linteger(std::vector<uint8_t> bytes) {
 
 int32_t linteger::getValue() { return this->value; }
 
-std::vector<uint8_t> linteger::encode() {
+encoding_t linteger::encode() {
   union {
     int32_t linteger;
     uint8_t bytes[4];
   } number;
-  std::vector<uint8_t> bytes;
+  encoding_t bytes;
   number.linteger = this->value;
   bytes.push_back((uint8_t)entryType::LINTEGER);
   bytes.push_back(number.bytes[0]);
@@ -34,7 +34,7 @@ std::vector<uint8_t> linteger::encode() {
 }
 
 // method
-bool isValidLinteger(std::vector<uint8_t> bytes) {
+bool isValidLinteger(encoding_t bytes) {
   uint32_t dataSize = bytes.size();
   if (dataSize != 5) {
     return false;

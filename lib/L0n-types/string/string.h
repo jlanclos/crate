@@ -1,22 +1,18 @@
 #pragma once
 
-#include <stdint.h>
 #include <types.h>
-
-#include <string>
-#include <vector>
 
 class string : public type {
  public:
-  string(std::string value);
-  string(std::vector<uint8_t> bytes);
+  string(string_t value);
+  string(encoding_t bytes);
 
-  std::string getValue();
+  string_t getValue();
 
-  std::vector<uint8_t> encode() override;
+  encoding_t encode() override;
 
  private:
-  std::string value = "";
+  string_t value = "";
 };
 
-static bool isValidString(std::vector<uint8_t> bytes);
+static bool isValidString(encoding_t bytes);

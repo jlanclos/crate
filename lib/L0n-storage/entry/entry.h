@@ -22,9 +22,9 @@ class entry {
   uint16_t getId();
   entryType getType();
 
-  std::vector<uint8_t> getBytes();
+  encoding_t getBytes();
 
  private:
   uint16_t id;
-  std::vector<uint8_t> bytes;
+  encoding_t bytes;
 };

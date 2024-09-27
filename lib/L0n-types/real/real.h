@@ -1,21 +1,18 @@
 #pragma once
 
-#include <stdint.h>
 #include <types.h>
-
-#include <vector>
 
 class real : public type {
  public:
   real(float value);
-  real(std::vector<uint8_t> bytes);
+  real(encoding_t bytes);
 
   float getValue();
 
-  std::vector<uint8_t> encode() override;
+  encoding_t encode() override;
 
  private:
   float value = 0.0;
 };
 
-static bool isValidReal(std::vector<uint8_t> bytes);
+static bool isValidReal(encoding_t bytes);

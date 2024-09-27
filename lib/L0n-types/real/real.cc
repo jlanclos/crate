@@ -2,7 +2,7 @@
 
 // real class
 real::real(float value) { this->value = value; }
-real::real(std::vector<uint8_t> bytes) {
+real::real(encoding_t bytes) {
   if (isValidReal(bytes)) {
     union {
       float decimal;
@@ -18,12 +18,12 @@ real::real(std::vector<uint8_t> bytes) {
 
 float real::getValue() { return this->value; }
 
-std::vector<uint8_t> real::encode() {
+encoding_t real::encode() {
   union {
     float decimal;
     uint8_t bytes[4];
   } number;
-  std::vector<uint8_t> bytes;
+  encoding_t bytes;
   number.decimal = this->value;
   bytes.push_back((uint8_t)entryType::REAL);
   bytes.push_back(number.bytes[0]);
@@ -34,7 +34,7 @@ std::vector<uint8_t> real::encode() {
 }
 
 // methods
-bool isValidReal(std::vector<uint8_t> bytes) {
+bool isValidReal(encoding_t bytes) {
   uint32_t dataSize = bytes.size();
   if (dataSize != 5) {
     return false;

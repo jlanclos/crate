@@ -2,7 +2,7 @@
 
 // sinteger class
 sinteger::sinteger(int8_t value) { this->value = value; }
-sinteger::sinteger(std::vector<uint8_t> bytes) {
+sinteger::sinteger(encoding_t bytes) {
   if (isValidSinteger(bytes)) {
     this->value = bytes[1];
   };
@@ -11,15 +11,15 @@ sinteger::sinteger(std::vector<uint8_t> bytes) {
 
 int8_t sinteger::getValue() { return this->value; }
 
-std::vector<uint8_t> sinteger::encode() {
-  std::vector<uint8_t> bytes;
+encoding_t sinteger::encode() {
+  encoding_t bytes;
   bytes.push_back((uint8_t)entryType::SINTEGER);
   bytes.push_back(this->value);
   return bytes;
 }
 
 // methods
-bool isValidSinteger(std::vector<uint8_t> bytes) {
+bool isValidSinteger(encoding_t bytes) {
   uint32_t dataSize = bytes.size();
   if (dataSize != 2) {
     return false;

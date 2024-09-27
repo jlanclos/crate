@@ -2,7 +2,14 @@
 
 #include <stdint.h>
 
+#include <array>
+#include <string>
 #include <vector>
+
+typedef std::vector<uint8_t> encoding_t;
+typedef std::string string_t;
+typedef std::array<uint8_t, 4> ipArray_t;
+typedef std::array<uint8_t, 6> macArray_t;
 
 enum class entryType : uint8_t {
   UNKNOWN = 0,
@@ -21,7 +28,7 @@ enum class entryType : uint8_t {
 
 class type {
  public:
-  virtual std::vector<uint8_t> encode() = 0;
+  virtual encoding_t encode() = 0;
 
  private:
 };

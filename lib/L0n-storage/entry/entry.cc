@@ -10,4 +10,4 @@ uint16_t entry::getId() { return this->id; }
 
 entryType entry::getType() { return (entryType)this->bytes[0]; }
 
-std::vector<uint8_t> entry::getBytes() { return this->bytes; }
+encoding_t entry::getBytes() { return this->bytes; }

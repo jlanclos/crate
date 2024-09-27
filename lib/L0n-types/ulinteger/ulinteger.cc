@@ -2,7 +2,7 @@
 
 // unsigned long class
 ulinteger::ulinteger(uint32_t value) { this->value = value; }
-ulinteger::ulinteger(std::vector<uint8_t> bytes) {
+ulinteger::ulinteger(encoding_t bytes) {
   if (isValidUlinteger(bytes)) {
     union {
       uint32_t ulinteger;
@@ -18,12 +18,12 @@ ulinteger::ulinteger(std::vector<uint8_t> bytes) {
 
 uint32_t ulinteger::getValue() { return this->value; }
 
-std::vector<uint8_t> ulinteger::encode() {
+encoding_t ulinteger::encode() {
   union {
     uint32_t ulinteger;
     uint8_t bytes[4];
   } number;
-  std::vector<uint8_t> bytes;
+  encoding_t bytes;
   number.ulinteger = this->value;
   bytes.push_back((uint8_t)entryType::ULINTEGER);
   bytes.push_back(number.bytes[0]);
@@ -34,7 +34,7 @@ std::vector<uint8_t> ulinteger::encode() {
 }
 
 // methods
-bool isValidUlinteger(std::vector<uint8_t> bytes) {
+bool isValidUlinteger(encoding_t bytes) {
   uint32_t dataSize = bytes.size();
   if (dataSize != 5) {
     return false;
