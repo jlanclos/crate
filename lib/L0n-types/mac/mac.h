@@ -6,7 +6,7 @@ class mac : public type {
  public:
   mac(uint8_t octet1, uint8_t octet2, uint8_t octet3, uint8_t octet4, uint8_t octet5, uint8_t octet6);
   mac(string_t macString);
-  mac(encoding_t bytes);
+  mac(byteString_t bytes);
 
   macArray_t getArray();
   string_t getString();
@@ -17,10 +17,10 @@ class mac : public type {
   uint8_t getOctet5();
   uint8_t getOctet6();
 
-  encoding_t encode() override;
+  byteString_t encode() override;
 
  private:
   macArray_t value;
 };
 
-static bool isValidMac(encoding_t bytes);
+static bool isValidMac(byteString_t bytes);

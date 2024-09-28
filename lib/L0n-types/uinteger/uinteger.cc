@@ -2,7 +2,7 @@
 
 // unsigned integer class
 uinteger::uinteger(uint16_t value) { this->value = value; }
-uinteger::uinteger(encoding_t bytes) {
+uinteger::uinteger(byteString_t bytes) {
   if (isValidUinteger(bytes)) {
     union {
       uint16_t integer;
@@ -16,12 +16,12 @@ uinteger::uinteger(encoding_t bytes) {
 
 uint16_t uinteger::getValue() { return this->value; }
 
-encoding_t uinteger::encode() {
+byteString_t uinteger::encode() {
   union {
     uint16_t integer;
     uint8_t bytes[2];
   } number;
-  encoding_t bytes;
+  byteString_t bytes;
   number.integer = this->value;
   bytes.push_back((uint8_t)entryType::UINTEGER);
   bytes.push_back(number.bytes[0]);
@@ -30,7 +30,7 @@ encoding_t uinteger::encode() {
 }
 
 // methods
-bool isValidUinteger(encoding_t bytes) {
+bool isValidUinteger(byteString_t bytes) {
   uint32_t dataSize = bytes.size();
   if (dataSize != 3) {
     return false;

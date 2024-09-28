@@ -5,14 +5,14 @@
 class linteger : public type {
  public:
   linteger(int32_t value);
-  linteger(encoding_t bytes);
+  linteger(byteString_t bytes);
 
   int32_t getValue();
 
-  encoding_t encode() override;
+  byteString_t encode() override;
 
  private:
   int32_t value = 0;
 };
 
-static bool isValidLinteger(encoding_t bytes);
+static bool isValidLinteger(byteString_t bytes);

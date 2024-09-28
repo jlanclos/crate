@@ -6,7 +6,7 @@ class ip : public type {
  public:
   ip(uint8_t octet1, uint8_t octet2, uint8_t octet3, uint8_t octet4);
   ip(string_t ipString);
-  ip(encoding_t bytes);
+  ip(byteString_t bytes);
 
   ipArray_t getArray();
   string_t getString();
@@ -15,10 +15,10 @@ class ip : public type {
   uint8_t getOctet3();
   uint8_t getOctet4();
 
-  encoding_t encode() override;
+  byteString_t encode() override;
 
  private:
   ipArray_t value;
 };
 
-static bool isValidIp(encoding_t bytes);
+static bool isValidIp(byteString_t bytes);

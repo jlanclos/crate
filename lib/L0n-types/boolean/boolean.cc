@@ -2,7 +2,7 @@
 
 // boolean class
 boolean::boolean(bool value) { this->value = value; }
-boolean::boolean(encoding_t bytes) {
+boolean::boolean(byteString_t bytes) {
   if (isValidBoolean(bytes)) {
     this->value = bytes[1];
   };
@@ -10,15 +10,15 @@ boolean::boolean(encoding_t bytes) {
 
 bool boolean::getValue() { return this->value; }
 
-encoding_t boolean::encode() {
-  encoding_t bytes;
+byteString_t boolean::encode() {
+  byteString_t bytes;
   bytes.push_back((uint8_t)entryType::BOOLEAN);
   bytes.push_back(this->value);
   return bytes;
 }
 
 // methods
-bool isValidBoolean(encoding_t bytes) {
+bool isValidBoolean(byteString_t bytes) {
   uint32_t dataSize = bytes.size();
   if (dataSize != 2) {
     return false;

@@ -5,14 +5,14 @@
 class integer : public type {
  public:
   integer(int16_t value);
-  integer(encoding_t bytes);
+  integer(byteString_t bytes);
 
   int16_t getValue();
 
-  encoding_t encode() override;
+  byteString_t encode() override;
 
  private:
   int16_t value = 0;
 };
 
-static bool isValidInteger(encoding_t bytes);
+static bool isValidInteger(byteString_t bytes);

@@ -28,7 +28,7 @@ TEST(stringMethods, stringCreateRead) {
     } dataSize;
     dataSize.integer = generator8.next();
     string_t sequenceString;
-    encoding_t serializedString;
+    byteString_t serializedString;
     serializedString.push_back((uint8_t)entryType::STRING);
     serializedString.push_back(dataSize.bytes[0]);
     serializedString.push_back(dataSize.bytes[1]);
@@ -54,7 +54,7 @@ TEST(stringMethods, stringSerialization) {
     } dataSize;
     dataSize.integer = generator8.next();
     string_t sequenceString;
-    encoding_t serializedString;
+    byteString_t serializedString;
     serializedString.push_back((uint8_t)entryType::STRING);
     serializedString.push_back(dataSize.bytes[0]);
     serializedString.push_back(dataSize.bytes[1]);

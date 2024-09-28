@@ -2,7 +2,7 @@
 
 // sinteger class
 sinteger::sinteger(int8_t value) { this->value = value; }
-sinteger::sinteger(encoding_t bytes) {
+sinteger::sinteger(byteString_t bytes) {
   if (isValidSinteger(bytes)) {
     this->value = bytes[1];
   };
@@ -11,15 +11,15 @@ sinteger::sinteger(encoding_t bytes) {
 
 int8_t sinteger::getValue() { return this->value; }
 
-encoding_t sinteger::encode() {
-  encoding_t bytes;
+byteString_t sinteger::encode() {
+  byteString_t bytes;
   bytes.push_back((uint8_t)entryType::SINTEGER);
   bytes.push_back(this->value);
   return bytes;
 }
 
 // methods
-bool isValidSinteger(encoding_t bytes) {
+bool isValidSinteger(byteString_t bytes) {
   uint32_t dataSize = bytes.size();
   if (dataSize != 2) {
     return false;

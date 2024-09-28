@@ -13,7 +13,7 @@ mac::mac(string_t macString) {
     this->value = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
   }
 }
-mac::mac(encoding_t bytes) {
+mac::mac(byteString_t bytes) {
   if (isValidMac(bytes)) {
     this->value = {bytes[1], bytes[2], bytes[3], bytes[4], bytes[5], bytes[6]};
   }
@@ -41,8 +41,8 @@ uint8_t mac::getOctet5() { return this->value[4]; }
 
 uint8_t mac::getOctet6() { return this->value[5]; }
 
-encoding_t mac::encode() {
-  encoding_t bytes;
+byteString_t mac::encode() {
+  byteString_t bytes;
   bytes.push_back((uint8_t)entryType::MAC);
   bytes.push_back(this->value[0]);
   bytes.push_back(this->value[1]);
@@ -54,7 +54,7 @@ encoding_t mac::encode() {
 }
 
 // methods
-bool isValidMac(encoding_t bytes) {
+bool isValidMac(byteString_t bytes) {
   uint32_t dataSize = bytes.size();
   if (dataSize != 7) {
     return false;

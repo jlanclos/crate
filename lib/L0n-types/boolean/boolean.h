@@ -5,13 +5,13 @@
 class boolean : public type {
  public:
   boolean(bool value);
-  boolean(encoding_t bytes);
+  boolean(byteString_t bytes);
 
   bool getValue();
-  encoding_t encode() override;
+  byteString_t encode() override;
 
  private:
   bool value = false;
 };
 
-static bool isValidBoolean(encoding_t bytes);
+static bool isValidBoolean(byteString_t bytes);

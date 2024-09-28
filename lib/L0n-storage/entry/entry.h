@@ -22,9 +22,9 @@ class entry {
   uint16_t getId();
   entryType getType();
 
-  encoding_t getBytes();
+  byteString_t getBytes();
 
  private:
   uint16_t id;
-  encoding_t bytes;
+  byteString_t bytes;
 };

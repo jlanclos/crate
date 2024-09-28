@@ -55,7 +55,7 @@ TEST(ipMethods, ipCreateRead) {
     sprintf(hexCharBytes, "%hu.%hu.%hu.%hu", octet1, octet2, octet3, octet4);
     string_t ipSeqString = hexCharBytes;
     ipArray_t compareIpSeqArray = {octet1, octet2, octet3, octet4};
-    encoding_t serializedIp = {(uint8_t)entryType::IP, octet1, octet2, octet3, octet4};
+    byteString_t serializedIp = {(uint8_t)entryType::IP, octet1, octet2, octet3, octet4};
     ip mockIpSeq(serializedIp);
     ASSERT_EQ(mockIpSeq.getArray(), compareIpSeqArray);
     ASSERT_EQ(mockIpSeq.getString(), ipSeqString);
@@ -78,7 +78,7 @@ TEST(ipMethods, ipSerialization) {
     ip mockIpSeq(octet1, octet2, octet3, octet4);
     ASSERT_EQ(mockIpSeq.getArray(), compareIpSeqArray);
 
-    encoding_t serializedIp = {(uint8_t)entryType::IP, octet1, octet2, octet3, octet4};
+    byteString_t serializedIp = {(uint8_t)entryType::IP, octet1, octet2, octet3, octet4};
     ASSERT_EQ(mockIpSeq.encode(), serializedIp);
     ip mockIpSeqPrevious(octet1, octet2, octet3, octet4);
     ip mockIpSeqNew(mockIpSeq.encode());

@@ -2,7 +2,7 @@
 
 // string class
 string::string(string_t value) { this->value = value; }
-string::string(encoding_t bytes) {
+string::string(byteString_t bytes) {
   if (isValidString(bytes)) {
     union {
       uint32_t integer;
@@ -22,12 +22,12 @@ string::string(encoding_t bytes) {
 
 string_t string::getValue() { return this->value; }
 
-encoding_t string::encode() {
+byteString_t string::encode() {
   union {
     uint32_t integer;
     uint8_t bytes[4];
   } dataSize;
-  encoding_t bytes;
+  byteString_t bytes;
   dataSize.integer = this->value.length();
   bytes.push_back((uint8_t)entryType::STRING);
   bytes.push_back(dataSize.bytes[0]);
@@ -40,7 +40,7 @@ encoding_t string::encode() {
   return bytes;
 }
 
-bool isValidString(encoding_t bytes) {
+bool isValidString(byteString_t bytes) {
   uint32_t dataSize = bytes.size();
   if (dataSize < 5) {
     return false;

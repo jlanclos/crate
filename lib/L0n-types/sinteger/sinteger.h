@@ -5,14 +5,14 @@
 class sinteger : public type {
  public:
   sinteger(int8_t value);
-  sinteger(encoding_t bytes);
+  sinteger(byteString_t bytes);
 
   int8_t getValue();
 
-  encoding_t encode() override;
+  byteString_t encode() override;
 
  private:
   int8_t value = 0;
 };
 
-static bool isValidSinteger(encoding_t bytes);
+static bool isValidSinteger(byteString_t bytes);
