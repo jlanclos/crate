@@ -2,17 +2,7 @@
 
 // integer class
 integer::integer(int16_t value) { this->value = value; }
-integer::integer(byteString_t bytes) {
-  if (isValidInteger(bytes)) {
-    union {
-      int16_t integer;
-      uint8_t bytes[2];
-    } number;
-    number.bytes[0] = bytes[1];
-    number.bytes[1] = bytes[2];
-    this->value = number.integer;
-  };
-}
+integer::integer(byteString_t bytes) { decode(bytes); }
 
 int16_t integer::getValue() { return this->value; }
 
@@ -27,6 +17,18 @@ byteString_t integer::encode() {
   bytes.push_back(number.bytes[0]);
   bytes.push_back(number.bytes[1]);
   return bytes;
+}
+
+void integer::decode(byteString_t bytes) {
+  if (isValidInteger(bytes)) {
+    union {
+      int16_t integer;
+      uint8_t bytes[2];
+    } number;
+    number.bytes[0] = bytes[1];
+    number.bytes[1] = bytes[2];
+    this->value = number.integer;
+  };
 }
 
 // methods

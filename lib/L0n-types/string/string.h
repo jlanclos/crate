@@ -10,6 +10,7 @@ class string : public type {
   string_t getValue();
 
   byteString_t encode() override;
+  void decode(byteString_t bytes) override;
 
  private:
   string_t value = "";

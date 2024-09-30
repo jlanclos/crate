@@ -10,6 +10,7 @@ class linteger : public type {
   int32_t getValue();
 
   byteString_t encode() override;
+  void decode(byteString_t bytes) override;
 
  private:
   int32_t value = 0;

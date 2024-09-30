@@ -9,7 +9,7 @@ storageService::storageService() { this->createConfiguration(); }
 
 storageService::~storageService() {}
 
-void storageService::saveFile(std::vector<uint8_t> data, std::string path) {
+void storageService::saveFile(byteString_t data, string_t path) {
   if (!LittleFS.begin()) {
   } else {
     File saveFile = LittleFS.open(path.c_str(), "w+");
@@ -25,8 +25,8 @@ void storageService::saveFile(std::vector<uint8_t> data, std::string path) {
   }
 }
 
-std::vector<uint8_t> storageService::loadFile(std::string path) {
-  std::vector<uint8_t> vectorResult;
+byteString_t storageService::loadFile(string_t path) {
+  byteString_t bytes;
   if (!LittleFS.begin()) {
   } else {
     File loadFile = LittleFS.open(path.c_str(), "r");
@@ -37,24 +37,23 @@ std::vector<uint8_t> storageService::loadFile(std::string path) {
         for (uint8_t i = 0; i < loadFileSize; i++) {
           uint8_t fileByte;
           loadFile.read((byte*)&fileByte, 1);
-          vectorResult.push_back(fileByte);
+          bytes.push_back(fileByte);
         }
       }
       loadFile.close();
     }
     LittleFS.end();
   }
-  return vectorResult;
+  return bytes;
 }
 
 configuration storageService::getConfiguration() {
-  configuration config;
-  config.load(this->loadFile(CONFIGURATION_PATH));
+  configuration config(this->loadFile(CONFIGURATION_PATH));
   return config;
 }
 
 void storageService::createConfiguration() {
   configuration config;
   config.setDefaults();
-  this->saveFile(config.save().package, CONFIGURATION_PATH);
+  this->saveFile(config.encode(), CONFIGURATION_PATH);
 }

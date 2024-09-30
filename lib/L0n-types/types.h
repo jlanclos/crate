@@ -23,12 +23,19 @@ enum class entryType : uint8_t {
   REAL = 8,
   STRING = 9,
   MAC = 10,
-  IP = 11
+  IP = 11,
+  WIFI_CHANNEL = 12
 };
 
-class type {
+class encodable {
  public:
   virtual byteString_t encode() = 0;
+  virtual void decode(byteString_t bytes) = 0;
 
+ private:
+};
+
+class type : public encodable {
+ public:
  private:
 };

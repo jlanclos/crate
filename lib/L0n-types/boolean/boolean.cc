@@ -2,11 +2,7 @@
 
 // boolean class
 boolean::boolean(bool value) { this->value = value; }
-boolean::boolean(byteString_t bytes) {
-  if (isValidBoolean(bytes)) {
-    this->value = bytes[1];
-  };
-}
+boolean::boolean(byteString_t bytes) { decode(bytes); }
 
 bool boolean::getValue() { return this->value; }
 
@@ -15,6 +11,12 @@ byteString_t boolean::encode() {
   bytes.push_back((uint8_t)entryType::BOOLEAN);
   bytes.push_back(this->value);
   return bytes;
+}
+
+void boolean::decode(byteString_t bytes) {
+  if (isValidBoolean(bytes)) {
+    this->value = bytes[1];
+  };
 }
 
 // methods

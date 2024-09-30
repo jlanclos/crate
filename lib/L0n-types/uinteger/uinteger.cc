@@ -2,17 +2,7 @@
 
 // unsigned integer class
 uinteger::uinteger(uint16_t value) { this->value = value; }
-uinteger::uinteger(byteString_t bytes) {
-  if (isValidUinteger(bytes)) {
-    union {
-      uint16_t integer;
-      uint8_t bytes[2];
-    } number;
-    number.bytes[0] = bytes[1];
-    number.bytes[1] = bytes[2];
-    this->value = number.integer;
-  };
-}
+uinteger::uinteger(byteString_t bytes) { decode(bytes); }
 
 uint16_t uinteger::getValue() { return this->value; }
 
@@ -27,6 +17,18 @@ byteString_t uinteger::encode() {
   bytes.push_back(number.bytes[0]);
   bytes.push_back(number.bytes[1]);
   return bytes;
+}
+
+void uinteger::decode(byteString_t bytes) {
+  if (isValidUinteger(bytes)) {
+    union {
+      uint16_t integer;
+      uint8_t bytes[2];
+    } number;
+    number.bytes[0] = bytes[1];
+    number.bytes[1] = bytes[2];
+    this->value = number.integer;
+  };
 }
 
 // methods

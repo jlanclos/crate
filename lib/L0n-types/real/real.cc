@@ -2,19 +2,7 @@
 
 // real class
 real::real(float value) { this->value = value; }
-real::real(byteString_t bytes) {
-  if (isValidReal(bytes)) {
-    union {
-      float decimal;
-      uint8_t bytes[4];
-    } number;
-    number.bytes[0] = bytes[1];
-    number.bytes[1] = bytes[2];
-    number.bytes[2] = bytes[3];
-    number.bytes[3] = bytes[4];
-    this->value = number.decimal;
-  };
-}
+real::real(byteString_t bytes) { decode(bytes); }
 
 float real::getValue() { return this->value; }
 
@@ -31,6 +19,20 @@ byteString_t real::encode() {
   bytes.push_back(number.bytes[2]);
   bytes.push_back(number.bytes[3]);
   return bytes;
+}
+
+void real::decode(byteString_t bytes) {
+  if (isValidReal(bytes)) {
+    union {
+      float decimal;
+      uint8_t bytes[4];
+    } number;
+    number.bytes[0] = bytes[1];
+    number.bytes[1] = bytes[2];
+    number.bytes[2] = bytes[3];
+    number.bytes[3] = bytes[4];
+    this->value = number.decimal;
+  };
 }
 
 // methods

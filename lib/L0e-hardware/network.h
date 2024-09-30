@@ -5,15 +5,10 @@
 #include <ESP8266WiFi.h>
 #include <ESPAsyncWebServer.h>
 #include <Ticker.h>
-#include <config.h>
+#include <config/config.h>
 #include <espnow.h>
-#include <file.h>
-#include <ip.h>
-#include <mac.h>
+#include <file/file.h>
 // #include <message.h>
-
-#include <string>
-#include <vector>
 
 class networkService {
  public:

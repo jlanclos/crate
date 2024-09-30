@@ -9,15 +9,9 @@ ip::ip(string_t ipString) {
   if (sscanf(ipString.c_str(), "%hu.%hu.%hu.%hu", (short unsigned int*)&ipBytes[0], (short unsigned int*)&ipBytes[1],
              (short unsigned int*)&ipBytes[2], (short unsigned int*)&ipBytes[3]) == 4) {
     this->value = ipBytes;
-  } else {
-    this->value = {0, 0, 0, 0};
   }
 }
-ip::ip(byteString_t bytes) {
-  if (isValidIp(bytes)) {
-    this->value = {bytes[1], bytes[2], bytes[3], bytes[4]};
-  }
-}
+ip::ip(byteString_t bytes) { decode(bytes); }
 
 ipArray_t ip::getArray() { return this->value; }
 
@@ -47,6 +41,12 @@ byteString_t ip::encode() {
   bytes.push_back(this->value[2]);
   bytes.push_back(this->value[3]);
   return bytes;
+}
+
+void ip::decode(byteString_t bytes) {
+  if (isValidIp(bytes)) {
+    this->value = {bytes[1], bytes[2], bytes[3], bytes[4]};
+  }
 }
 
 // methods

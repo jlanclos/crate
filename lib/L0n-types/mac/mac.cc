@@ -9,15 +9,9 @@ mac::mac(string_t macString) {
   if (sscanf(macString.c_str(), "%02hhX:%02hhX:%02hhX:%02hhX:%02hhX:%02hhX", &macBytes[0], &macBytes[1], &macBytes[2],
              &macBytes[3], &macBytes[4], &macBytes[5]) == 6) {
     this->value = macBytes;
-  } else {
-    this->value = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
   }
 }
-mac::mac(byteString_t bytes) {
-  if (isValidMac(bytes)) {
-    this->value = {bytes[1], bytes[2], bytes[3], bytes[4], bytes[5], bytes[6]};
-  }
-}
+mac::mac(byteString_t bytes) { decode(bytes); }
 
 macArray_t mac::getArray() { return this->value; }
 
@@ -51,6 +45,12 @@ byteString_t mac::encode() {
   bytes.push_back(this->value[4]);
   bytes.push_back(this->value[5]);
   return bytes;
+}
+
+void mac::decode(byteString_t bytes) {
+  if (isValidMac(bytes)) {
+    this->value = {bytes[1], bytes[2], bytes[3], bytes[4], bytes[5], bytes[6]};
+  }
 }
 
 // methods

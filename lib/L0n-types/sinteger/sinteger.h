@@ -10,6 +10,7 @@ class sinteger : public type {
   int8_t getValue();
 
   byteString_t encode() override;
+  void decode(byteString_t bytes) override;
 
  private:
   int8_t value = 0;

@@ -18,9 +18,10 @@ class mac : public type {
   uint8_t getOctet6();
 
   byteString_t encode() override;
+  void decode(byteString_t bytes) override;
 
  private:
-  macArray_t value;
+  macArray_t value = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00};;
 };
 
 static bool isValidMac(byteString_t bytes);

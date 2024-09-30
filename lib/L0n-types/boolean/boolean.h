@@ -9,6 +9,7 @@ class boolean : public type {
 
   bool getValue();
   byteString_t encode() override;
+  void decode(byteString_t bytes) override;
 
  private:
   bool value = false;

@@ -10,6 +10,7 @@ class usinteger : public type {
   uint8_t getValue();
 
   byteString_t encode() override;
+  void decode(byteString_t bytes) override;
 
  private:
   uint8_t value = 0;

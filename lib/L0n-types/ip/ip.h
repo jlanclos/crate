@@ -16,9 +16,10 @@ class ip : public type {
   uint8_t getOctet4();
 
   byteString_t encode() override;
+  void decode(byteString_t bytes) override;
 
  private:
-  ipArray_t value;
+  ipArray_t value = {0, 0, 0, 0};
 };
 
 static bool isValidIp(byteString_t bytes);

@@ -2,19 +2,7 @@
 
 // linteger class
 linteger::linteger(int32_t value) { this->value = value; }
-linteger::linteger(byteString_t bytes) {
-  if (isValidLinteger(bytes)) {
-    union {
-      int32_t linteger;
-      uint8_t bytes[4];
-    } number;
-    number.bytes[0] = bytes[1];
-    number.bytes[1] = bytes[2];
-    number.bytes[2] = bytes[3];
-    number.bytes[3] = bytes[4];
-    this->value = number.linteger;
-  };
-}
+linteger::linteger(byteString_t bytes) { decode(bytes); }
 
 int32_t linteger::getValue() { return this->value; }
 
@@ -31,6 +19,20 @@ byteString_t linteger::encode() {
   bytes.push_back(number.bytes[2]);
   bytes.push_back(number.bytes[3]);
   return bytes;
+}
+
+void linteger::decode(byteString_t bytes) {
+  if (isValidLinteger(bytes)) {
+    union {
+      int32_t linteger;
+      uint8_t bytes[4];
+    } number;
+    number.bytes[0] = bytes[1];
+    number.bytes[1] = bytes[2];
+    number.bytes[2] = bytes[3];
+    number.bytes[3] = bytes[4];
+    this->value = number.linteger;
+  };
 }
 
 // method

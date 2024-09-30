@@ -2,11 +2,7 @@
 
 // unsigned integer class
 usinteger::usinteger(uint8_t value) { this->value = value; }
-usinteger::usinteger(byteString_t bytes) {
-  if (isValidUsinteger(bytes)) {
-    this->value = bytes[1];
-  };
-}
+usinteger::usinteger(byteString_t bytes) { decode(bytes); }
 
 uint8_t usinteger::getValue() { return this->value; }
 
@@ -15,6 +11,12 @@ byteString_t usinteger::encode() {
   bytes.push_back((uint8_t)entryType::USINTEGER);
   bytes.push_back(this->value);
   return bytes;
+}
+
+void usinteger::decode(byteString_t bytes) {
+  if (isValidUsinteger(bytes)) {
+    this->value = bytes[1];
+  };
 }
 
 // methods

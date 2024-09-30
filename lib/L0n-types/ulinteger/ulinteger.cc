@@ -2,19 +2,7 @@
 
 // unsigned long class
 ulinteger::ulinteger(uint32_t value) { this->value = value; }
-ulinteger::ulinteger(byteString_t bytes) {
-  if (isValidUlinteger(bytes)) {
-    union {
-      uint32_t ulinteger;
-      uint8_t bytes[4];
-    } number;
-    number.bytes[0] = bytes[1];
-    number.bytes[1] = bytes[2];
-    number.bytes[2] = bytes[3];
-    number.bytes[3] = bytes[4];
-    this->value = number.ulinteger;
-  };
-}
+ulinteger::ulinteger(byteString_t bytes) { decode(bytes); }
 
 uint32_t ulinteger::getValue() { return this->value; }
 
@@ -31,6 +19,20 @@ byteString_t ulinteger::encode() {
   bytes.push_back(number.bytes[2]);
   bytes.push_back(number.bytes[3]);
   return bytes;
+}
+
+void ulinteger::decode(byteString_t bytes) {
+  if (isValidUlinteger(bytes)) {
+    union {
+      uint32_t ulinteger;
+      uint8_t bytes[4];
+    } number;
+    number.bytes[0] = bytes[1];
+    number.bytes[1] = bytes[2];
+    number.bytes[2] = bytes[3];
+    number.bytes[3] = bytes[4];
+    this->value = number.ulinteger;
+  };
 }
 
 // methods

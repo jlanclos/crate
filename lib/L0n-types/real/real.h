@@ -10,6 +10,7 @@ class real : public type {
   float getValue();
 
   byteString_t encode() override;
+  void decode(byteString_t bytes) override;
 
  private:
   float value = 0.0;

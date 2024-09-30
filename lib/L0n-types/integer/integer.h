@@ -10,6 +10,7 @@ class integer : public type {
   int16_t getValue();
 
   byteString_t encode() override;
+  void decode(byteString_t bytes) override;
 
  private:
   int16_t value = 0;
