@@ -9,9 +9,9 @@ void configuration::setDeviceName(string newDeviceName) { setEntry(parameter::DE
 
 void configuration::setDeviceGroup(string newDeviceGroup) { setEntry(parameter::DEVICE_GROUP, newDeviceGroup); }
 
-void configuration::setIsHub(boolean newIsHub) { setEntry(parameter::IS_HUB, newIsHub); }
+void configuration::setIsHub(toggle newIsHub) { setEntry(parameter::IS_HUB, newIsHub); }
 
-void configuration::setRunEnabled(boolean newRunEnabled) { setEntry(parameter::RUN_ENABLED, newRunEnabled); }
+void configuration::setRunEnabled(toggle newRunEnabled) { setEntry(parameter::RUN_ENABLED, newRunEnabled); }
 
 void configuration::setWifiChannel(wifiChannel newChannel) { setEntry(parameter::WIFI_CHANNEL, newChannel); }
 
@@ -31,7 +31,7 @@ void configuration::setMqttUsername(string newMqttUsername) { setEntry(parameter
 
 void configuration::setMqttPassword(string newMqttPassword) { setEntry(parameter::MQTT_PASSWORD, newMqttPassword); }
 
-void configuration::setGuiEnabled(boolean newGuiEnabled) { setEntry(parameter::GUI_ENABLED, newGuiEnabled); }
+void configuration::setGuiEnabled(toggle newGuiEnabled) { setEntry(parameter::GUI_ENABLED, newGuiEnabled); }
 
 void configuration::setGuiIp(ip newGuiIp) { setEntry(parameter::GUI_IP, newGuiIp); }
 
@@ -80,7 +80,7 @@ string configuration::getDeviceName() {
     this->setDefaults();
     return DEFAULT_DEVICE_NAME;
   }
-  return string(searchResult.entry.getData());
+  return string(searchResult.entryPackage.getData());
 }
 
 string configuration::getDeviceGroup() {
@@ -89,25 +89,25 @@ string configuration::getDeviceGroup() {
     this->setDefaults();
     return DEFAULT_DEVICE_GROUP;
   }
-  return string(searchResult.entry.getData());
+  return string(searchResult.entryPackage.getData());
 }
 
-boolean configuration::getIsHub() {
+toggle configuration::getIsHub() {
   searchIdResult searchResult = searchId(parameter::IS_HUB);
-  if (not searchResult.exists or not(searchResult.type == entryType::BOOLEAN)) {
+  if (not searchResult.exists or not(searchResult.type == entryType::TOGGLE)) {
     this->setDefaults();
     return DEFAULT_IS_HUB;
   }
-  return boolean(searchResult.entry.getData());
+  return toggle(searchResult.entryPackage.getData());
 }
 
-boolean configuration::getRunEnabled() {
+toggle configuration::getRunEnabled() {
   searchIdResult searchResult = searchId(parameter::RUN_ENABLED);
-  if (not searchResult.exists or not(searchResult.type == entryType::BOOLEAN)) {
+  if (not searchResult.exists or not(searchResult.type == entryType::TOGGLE)) {
     this->setDefaults();
     return DEFAULT_RUN_ENABLED;
   }
-  return boolean(searchResult.entry.getData());
+  return toggle(searchResult.entryPackage.getData());
 }
 
 wifiChannel configuration::getWifiChannel() {
@@ -116,7 +116,7 @@ wifiChannel configuration::getWifiChannel() {
     this->setDefaults();
     return DEFAULT_WIFI_CHANNEL;
   }
-  return wifiChannel(searchResult.entry.getData());
+  return wifiChannel(searchResult.entryPackage.getData());
 }
 
 mac configuration::getHubMac() {
@@ -125,7 +125,7 @@ mac configuration::getHubMac() {
     this->setDefaults();
     return DEFAULT_HUB_MAC;
   }
-  return mac(searchResult.entry.getData());
+  return mac(searchResult.entryPackage.getData());
 }
 
 string configuration::getNetworkSsid() {
@@ -134,7 +134,7 @@ string configuration::getNetworkSsid() {
     this->setDefaults();
     return DEFAULT_NETWORK_SSID;
   }
-  return string(searchResult.entry.getData());
+  return string(searchResult.entryPackage.getData());
 }
 
 string configuration::getNetworkPassword() {
@@ -143,7 +143,7 @@ string configuration::getNetworkPassword() {
     this->setDefaults();
     return DEFAULT_NETWORK_PASSWORD;
   }
-  return string(searchResult.entry.getData());
+  return string(searchResult.entryPackage.getData());
 }
 
 ip configuration::getMqttIp() {
@@ -152,7 +152,7 @@ ip configuration::getMqttIp() {
     this->setDefaults();
     return DEFAULT_MQTT_IP;
   }
-  return ip(searchResult.entry.getData());
+  return ip(searchResult.entryPackage.getData());
 }
 
 uinteger configuration::getMqttPort() {
@@ -161,7 +161,7 @@ uinteger configuration::getMqttPort() {
     this->setDefaults();
     return DEFAULT_MQTT_PORT;
   }
-  return uinteger(searchResult.entry.getData());
+  return uinteger(searchResult.entryPackage.getData());
 }
 
 string configuration::getMqttUsername() {
@@ -170,7 +170,7 @@ string configuration::getMqttUsername() {
     this->setDefaults();
     return DEFAULT_MQTT_USERNAME;
   }
-  return string(searchResult.entry.getData());
+  return string(searchResult.entryPackage.getData());
 }
 
 string configuration::getMqttPassword() {
@@ -179,16 +179,16 @@ string configuration::getMqttPassword() {
     this->setDefaults();
     return DEFAULT_MQTT_PASSWORD;
   }
-  return string(searchResult.entry.getData());
+  return string(searchResult.entryPackage.getData());
 }
 
-boolean configuration::getGuiEnabled() {
+toggle configuration::getGuiEnabled() {
   searchIdResult searchResult = searchId(parameter::GUI_ENABLED);
-  if (not searchResult.exists or not(searchResult.type == entryType::BOOLEAN)) {
+  if (not searchResult.exists or not(searchResult.type == entryType::TOGGLE)) {
     this->setDefaults();
     return DEFAULT_GUI_ENABLED;
   }
-  return boolean(searchResult.entry.getData());
+  return toggle(searchResult.entryPackage.getData());
 }
 
 ip configuration::getGuiIp() {
@@ -197,7 +197,7 @@ ip configuration::getGuiIp() {
     this->setDefaults();
     return DEFAULT_GUI_IP;
   }
-  return ip(searchResult.entry.getData());
+  return ip(searchResult.entryPackage.getData());
 }
 
 ip configuration::getGuiSubnet() {
@@ -206,7 +206,7 @@ ip configuration::getGuiSubnet() {
     this->setDefaults();
     return DEFAULT_GUI_SUBNET;
   }
-  return ip(searchResult.entry.getData());
+  return ip(searchResult.entryPackage.getData());
 }
 
 ip configuration::getGuiGateway() {
@@ -215,7 +215,7 @@ ip configuration::getGuiGateway() {
     this->setDefaults();
     return DEFAULT_GUI_GATEWAY;
   }
-  return ip(searchResult.entry.getData());
+  return ip(searchResult.entryPackage.getData());
 }
 
 uinteger configuration::getGuiPort() {
@@ -224,7 +224,7 @@ uinteger configuration::getGuiPort() {
     this->setDefaults();
     return DEFAULT_GUI_PORT;
   }
-  return uinteger(searchResult.entry.getData());
+  return uinteger(searchResult.entryPackage.getData());
 }
 
 string configuration::getGuiPassword() {
@@ -233,7 +233,7 @@ string configuration::getGuiPassword() {
     this->setDefaults();
     return DEFAULT_GUI_PASSWORD;
   }
-  return string(searchResult.entry.getData());
+  return string(searchResult.entryPackage.getData());
 }
 
 usinteger configuration::getMaxMessageSendAttempts() {
@@ -242,7 +242,7 @@ usinteger configuration::getMaxMessageSendAttempts() {
     this->setDefaults();
     return DEFAULT_MAX_MESSAGE_SEND_ATTEMPTS;
   }
-  return usinteger(searchResult.entry.getData());
+  return usinteger(searchResult.entryPackage.getData());
 }
 
 usinteger configuration::getMaxMessageQueueSize() {
@@ -251,5 +251,5 @@ usinteger configuration::getMaxMessageQueueSize() {
     this->setDefaults();
     return DEFAULT_MAX_MESSAGE_QUEUE_SIZE;
   }
-  return usinteger(searchResult.entry.getData());
+  return usinteger(searchResult.entryPackage.getData());
 }

@@ -37,7 +37,7 @@ searchIdResult file::searchId(uint16_t id) {
         result.exists = true;
         result.index = i;
         result.type = entries[i].getType();
-        result.entry = entries[i];
+        result.entryPackage = entries[i];
       }
     }
   }
@@ -110,8 +110,8 @@ void file::decode(byteString_t bytes) {
       if (entryDataSize.value >= 2) {
         entryType type = (entryType)entryData[0];
         switch (type) {
-          case entryType::BOOLEAN: {
-            boolean newBoolean(entryData);
+          case entryType::TOGGLE: {
+            toggle newBoolean(entryData);
             entry newEntry(entryId.value, newBoolean);
             this->entries.push_back(newEntry);
           } break;

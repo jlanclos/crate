@@ -1,6 +1,6 @@
 #pragma once
 
-#include <boolean/boolean.h>
+#include <toggle/toggle.h>
 #include <integer/integer.h>
 #include <ip/ip.h>
 #include <linteger/linteger.h>

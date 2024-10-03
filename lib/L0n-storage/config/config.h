@@ -2,8 +2,8 @@
 
 #define DEFAULT_DEVICE_NAME string("newDevice")
 #define DEFAULT_DEVICE_GROUP string("luna")
-#define DEFAULT_IS_HUB boolean(true)
-#define DEFAULT_RUN_ENABLED boolean(false)
+#define DEFAULT_IS_HUB toggle(true)
+#define DEFAULT_RUN_ENABLED toggle(false)
 #define DEFAULT_WIFI_CHANNEL wifiChannel(channel::CH_3)
 #define DEFAULT_HUB_MAC mac(5, 5, 5, 5, 5, 5)
 #define DEFAULT_NETWORK_SSID string("Les Bon Temps")
@@ -12,7 +12,7 @@
 #define DEFAULT_MQTT_PORT uinteger(1883)
 #define DEFAULT_MQTT_USERNAME string("treehouse")
 #define DEFAULT_MQTT_PASSWORD string("Tt9899MX5!Ee000")
-#define DEFAULT_GUI_ENABLED boolean(true)
+#define DEFAULT_GUI_ENABLED toggle(true)
 #define DEFAULT_GUI_IP ip(192, 168, 0, 5)
 #define DEFAULT_GUI_SUBNET ip(255, 255, 255, 0)
 #define DEFAULT_GUI_GATEWAY ip(192, 168, 0, 8)
@@ -53,8 +53,8 @@ class configuration : public file {
 
   void setDeviceName(string newDeviceName);
   void setDeviceGroup(string newDeviceGroup);
-  void setIsHub(boolean newIsHub);
-  void setRunEnabled(boolean newRunEnabled);
+  void setIsHub(toggle newIsHub);
+  void setRunEnabled(toggle newRunEnabled);
   void setWifiChannel(wifiChannel newChannel);
   void setHubMac(mac newHubMac);
   void setNetworkSsid(string newNetworkSsid);
@@ -63,7 +63,7 @@ class configuration : public file {
   void setMqttPort(uinteger newMqttPort);
   void setMqttUsername(string newMqttUsername);
   void setMqttPassword(string newMqttPassword);
-  void setGuiEnabled(boolean newGuiEnabled);
+  void setGuiEnabled(toggle newGuiEnabled);
   void setGuiIp(ip newGuiIp);
   void setGuiSubnet(ip newGuiIp);
   void setGuiGateway(ip newGuiGateway);
@@ -76,8 +76,8 @@ class configuration : public file {
 
   string getDeviceName();
   string getDeviceGroup();
-  boolean getIsHub();
-  boolean getRunEnabled();
+  toggle getIsHub();
+  toggle getRunEnabled();
   wifiChannel getWifiChannel();
   mac getHubMac();
   string getNetworkSsid();
@@ -86,7 +86,7 @@ class configuration : public file {
   uinteger getMqttPort();
   string getMqttUsername();
   string getMqttPassword();
-  boolean getGuiEnabled();
+  toggle getGuiEnabled();
   ip getGuiIp();
   ip getGuiSubnet();
   ip getGuiGateway();

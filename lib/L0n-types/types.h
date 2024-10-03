@@ -13,7 +13,7 @@ typedef std::array<uint8_t, 6> macArray_t;
 
 enum class entryType : uint8_t {
   UNKNOWN = 0,
-  BOOLEAN = 1,
+  TOGGLE = 1,
   USINTEGER = 2,
   SINTEGER = 3,
   UINTEGER = 4,

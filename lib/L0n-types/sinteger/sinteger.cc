@@ -17,7 +17,6 @@ void sinteger::decode(byteString_t bytes) {
   if (isValidSinteger(bytes)) {
     this->value = bytes[1];
   };
-  ;
 }
 
 // methods

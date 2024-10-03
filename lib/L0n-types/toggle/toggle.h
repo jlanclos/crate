@@ -2,10 +2,10 @@
 
 #include <types.h>
 
-class boolean : public type {
+class toggle : public type {
  public:
-  boolean(bool value);
-  boolean(byteString_t bytes);
+  toggle(bool value);
+  toggle(byteString_t bytes);
 
   bool getValue();
   byteString_t encode() override;
@@ -15,4 +15,4 @@ class boolean : public type {
   bool value = false;
 };
 
-static bool isValidBoolean(byteString_t bytes);
+static bool isValidToggle(byteString_t bytes);

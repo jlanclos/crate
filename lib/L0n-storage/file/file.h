@@ -8,7 +8,7 @@ struct searchIdResult {
   bool exists = false;
   uint16_t index = 0;
   entryType type = entryType::UNKNOWN;
-  entry entry;
+  entry entryPackage;
 };
 
 class file : public encodable {

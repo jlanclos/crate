@@ -1,6 +1,7 @@
 #include <real/real.h>
 
-// real class
+// real class	mathieucarbou/AsyncWebServer
+
 real::real(float value) { this->value = value; }
 real::real(byteString_t bytes) { decode(bytes); }
 
