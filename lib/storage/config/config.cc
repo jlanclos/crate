@@ -2,7 +2,6 @@
 #include <config/config.h>
 
 // config class
-configuration::configuration() {}
 configuration::configuration(byteString_t bytes) { decode(bytes); }
 
 void configuration::setDeviceName(string newDeviceName) { setEntry(parameter::DEVICE_NAME, newDeviceName); }
@@ -77,7 +76,6 @@ void configuration::setDefaults() {
 string configuration::getDeviceName() {
   searchIdResult searchResult = searchId(parameter::DEVICE_NAME);
   if (not searchResult.exists or not(searchResult.type == entryType::STRING)) {
-    this->setDefaults();
     return DEFAULT_DEVICE_NAME;
   }
   return string(searchResult.entryPackage.getData());
@@ -86,7 +84,6 @@ string configuration::getDeviceName() {
 string configuration::getDeviceGroup() {
   searchIdResult searchResult = searchId(parameter::DEVICE_GROUP);
   if (not searchResult.exists or not(searchResult.type == entryType::STRING)) {
-    this->setDefaults();
     return DEFAULT_DEVICE_GROUP;
   }
   return string(searchResult.entryPackage.getData());
@@ -95,7 +92,6 @@ string configuration::getDeviceGroup() {
 toggle configuration::getIsHub() {
   searchIdResult searchResult = searchId(parameter::IS_HUB);
   if (not searchResult.exists or not(searchResult.type == entryType::TOGGLE)) {
-    this->setDefaults();
     return DEFAULT_IS_HUB;
   }
   return toggle(searchResult.entryPackage.getData());
@@ -104,7 +100,6 @@ toggle configuration::getIsHub() {
 toggle configuration::getRunEnabled() {
   searchIdResult searchResult = searchId(parameter::RUN_ENABLED);
   if (not searchResult.exists or not(searchResult.type == entryType::TOGGLE)) {
-    this->setDefaults();
     return DEFAULT_RUN_ENABLED;
   }
   return toggle(searchResult.entryPackage.getData());
@@ -113,7 +108,6 @@ toggle configuration::getRunEnabled() {
 wifiChannel configuration::getWifiChannel() {
   searchIdResult searchResult = searchId(parameter::WIFI_CHANNEL);
   if (not searchResult.exists or not(searchResult.type == entryType::WIFI_CHANNEL)) {
-    this->setDefaults();
     return DEFAULT_WIFI_CHANNEL;
   }
   return wifiChannel(searchResult.entryPackage.getData());
@@ -122,7 +116,6 @@ wifiChannel configuration::getWifiChannel() {
 mac configuration::getHubMac() {
   searchIdResult searchResult = searchId(parameter::HUB_MAC);
   if (not searchResult.exists or not(searchResult.type == entryType::MAC)) {
-    this->setDefaults();
     return DEFAULT_HUB_MAC;
   }
   return mac(searchResult.entryPackage.getData());
@@ -131,7 +124,6 @@ mac configuration::getHubMac() {
 string configuration::getNetworkSsid() {
   searchIdResult searchResult = searchId(parameter::NETWORK_SSID);
   if (not searchResult.exists or not(searchResult.type == entryType::STRING)) {
-    this->setDefaults();
     return DEFAULT_NETWORK_SSID;
   }
   return string(searchResult.entryPackage.getData());
@@ -140,7 +132,6 @@ string configuration::getNetworkSsid() {
 string configuration::getNetworkPassword() {
   searchIdResult searchResult = searchId(parameter::NETWORK_PASSWORD);
   if (not searchResult.exists or not(searchResult.type == entryType::STRING)) {
-    this->setDefaults();
     return DEFAULT_NETWORK_PASSWORD;
   }
   return string(searchResult.entryPackage.getData());
@@ -149,7 +140,6 @@ string configuration::getNetworkPassword() {
 ip configuration::getMqttIp() {
   searchIdResult searchResult = searchId(parameter::MQTT_IP);
   if (not searchResult.exists or not(searchResult.type == entryType::IP)) {
-    this->setDefaults();
     return DEFAULT_MQTT_IP;
   }
   return ip(searchResult.entryPackage.getData());
@@ -158,7 +148,6 @@ ip configuration::getMqttIp() {
 uinteger configuration::getMqttPort() {
   searchIdResult searchResult = searchId(parameter::MQTT_PORT);
   if (not searchResult.exists or not(searchResult.type == entryType::UINTEGER)) {
-    this->setDefaults();
     return DEFAULT_MQTT_PORT;
   }
   return uinteger(searchResult.entryPackage.getData());
@@ -167,7 +156,6 @@ uinteger configuration::getMqttPort() {
 string configuration::getMqttUsername() {
   searchIdResult searchResult = searchId(parameter::MQTT_USERNAME);
   if (not searchResult.exists or not(searchResult.type == entryType::STRING)) {
-    this->setDefaults();
     return DEFAULT_MQTT_USERNAME;
   }
   return string(searchResult.entryPackage.getData());
@@ -176,7 +164,6 @@ string configuration::getMqttUsername() {
 string configuration::getMqttPassword() {
   searchIdResult searchResult = searchId(parameter::MQTT_PASSWORD);
   if (not searchResult.exists or not(searchResult.type == entryType::STRING)) {
-    this->setDefaults();
     return DEFAULT_MQTT_PASSWORD;
   }
   return string(searchResult.entryPackage.getData());
@@ -185,7 +172,6 @@ string configuration::getMqttPassword() {
 toggle configuration::getGuiEnabled() {
   searchIdResult searchResult = searchId(parameter::GUI_ENABLED);
   if (not searchResult.exists or not(searchResult.type == entryType::TOGGLE)) {
-    this->setDefaults();
     return DEFAULT_GUI_ENABLED;
   }
   return toggle(searchResult.entryPackage.getData());
@@ -194,7 +180,6 @@ toggle configuration::getGuiEnabled() {
 ip configuration::getGuiIp() {
   searchIdResult searchResult = searchId(parameter::GUI_IP);
   if (not searchResult.exists or not(searchResult.type == entryType::IP)) {
-    this->setDefaults();
     return DEFAULT_GUI_IP;
   }
   return ip(searchResult.entryPackage.getData());
@@ -203,7 +188,6 @@ ip configuration::getGuiIp() {
 ip configuration::getGuiSubnet() {
   searchIdResult searchResult = searchId(parameter::GUI_SUBNET);
   if (not searchResult.exists or not(searchResult.type == entryType::IP)) {
-    this->setDefaults();
     return DEFAULT_GUI_SUBNET;
   }
   return ip(searchResult.entryPackage.getData());
@@ -212,7 +196,6 @@ ip configuration::getGuiSubnet() {
 ip configuration::getGuiGateway() {
   searchIdResult searchResult = searchId(parameter::GUI_GATEWAY);
   if (not searchResult.exists or not(searchResult.type == entryType::IP)) {
-    this->setDefaults();
     return DEFAULT_GUI_GATEWAY;
   }
   return ip(searchResult.entryPackage.getData());
@@ -221,7 +204,6 @@ ip configuration::getGuiGateway() {
 uinteger configuration::getGuiPort() {
   searchIdResult searchResult = searchId(parameter::GUI_PORT);
   if (not searchResult.exists or not(searchResult.type == entryType::UINTEGER)) {
-    this->setDefaults();
     return DEFAULT_GUI_PORT;
   }
   return uinteger(searchResult.entryPackage.getData());
@@ -230,7 +212,6 @@ uinteger configuration::getGuiPort() {
 string configuration::getGuiPassword() {
   searchIdResult searchResult = searchId(parameter::GUI_PASSWORD);
   if (not searchResult.exists or not(searchResult.type == entryType::STRING)) {
-    this->setDefaults();
     return DEFAULT_GUI_PASSWORD;
   }
   return string(searchResult.entryPackage.getData());
@@ -239,7 +220,6 @@ string configuration::getGuiPassword() {
 usinteger configuration::getMaxMessageSendAttempts() {
   searchIdResult searchResult = searchId(parameter::MAX_MESSAGE_SEND_ATTEMPTS);
   if (not searchResult.exists or not(searchResult.type == entryType::USINTEGER)) {
-    this->setDefaults();
     return DEFAULT_MAX_MESSAGE_SEND_ATTEMPTS;
   }
   return usinteger(searchResult.entryPackage.getData());
@@ -248,7 +228,6 @@ usinteger configuration::getMaxMessageSendAttempts() {
 usinteger configuration::getMaxMessageQueueSize() {
   searchIdResult searchResult = searchId(parameter::MAX_MESSAGE_QUEUE_SIZE);
   if (not searchResult.exists or not(searchResult.type == entryType::USINTEGER)) {
-    this->setDefaults();
     return DEFAULT_MAX_MESSAGE_QUEUE_SIZE;
   }
   return usinteger(searchResult.entryPackage.getData());

@@ -48,7 +48,6 @@ enum parameter : uint8_t {
 
 class configuration : public file {
  public:
-  configuration();
   configuration(byteString_t bytes);
 
   void setDeviceName(string newDeviceName);
@@ -96,5 +95,4 @@ class configuration : public file {
   usinteger getMaxMessageQueueSize();
 
  private:
-  file config;
 };
